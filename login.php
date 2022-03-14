@@ -4,15 +4,32 @@ session_start();
 
 require_once './db.php';
 
+$message_error = "";
+$message_success = "";
+
 if(isset($_POST['username']) && isset($_POST['password'])){
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+    $user = htmlentities($_POST['username'], ENT_QUOTES);
+    $pass = htmlentities($_POST['password'], ENT_QUOTES);
 
     if( !empty(trim($user)) && !empty(trim($pass)) ){
-        // $result = $db->query("SELECT * FROM users WHERE email='$user' AND WHERE password='$password' LIMIT 1");
-        $_SESSION['username'] = $user;
-        $_SESSION['password'] = $pass;
-        header('Location: ./home.php');
+        $sql = "SELECT * FROM users WHERE email='$user' LIMIT 1";
+        $result = $db->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            if(password_verify($pass,$row['password'])){
+                $message_success = "Successfuly login";
+                $_SESSION['fname'] = $row['fname'];
+                $_SESSION['lname'] = $row['lname'];
+                $_SESSION['username'] = $row['email'];
+                $_SESSION['password'] = $row['password'];
+                header('refresh:0.4 /home.php');
+            }else{
+                $message_error = "password does not match our cresidentials";
+            }
+            
+        }else{
+            $message_error = "email not found";
+        }
     }  
     
 }
@@ -50,6 +67,23 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                             <input type="password" class="form-control bg-dark text-white" name="password" id="" aria-describedby="helpId" placeholder="">
                             <small id="helpId" class="form-text text-muted">password</small>
                         </div>
+                        <?php 
+                            if($message_success != '' || $message_success != null){
+                                echo "
+                                <div class='alert alert-success' role='alert'>
+                                    <strong>$message_success</strong>
+                                </div>
+                                ";
+                            }
+                            if($message_error != '' || $message_error != null){
+                                echo "
+                                <div class='alert alert-danger' role='alert'>
+                                    <strong>$message_error</strong>
+                                </div>
+                                ";
+                            }
+                        ?>
+                        
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
                             <input type="submit" value="login" class="btn btn-primary">

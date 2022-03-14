@@ -1,6 +1,7 @@
 <?php
 
 require_once './auth.php';
+require_once './db.php';
 
 ?>
 <!doctype html>
@@ -32,8 +33,13 @@ require_once './auth.php';
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="visually-hidden">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle text-dark" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">chat</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="./chat/individual.php">individual</a>
+                            <a class="dropdown-item" href="./chat/group.php">group</a>
+                            <a class="dropdown-item" href="./chat/global.php">global</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -56,13 +62,13 @@ require_once './auth.php';
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <input type="text" class="form-control" value="" name="" id="" readonly>
+                            <input type="text" class="form-control" value="<?php echo $_SESSION['fname'] ?>" name="" id="" readonly>
                             <small class="form-text text-muted">First Name</small>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <input type="text" class="form-control" value="" name="" id="" readonly>
+                            <input type="text" class="form-control" value="<?php echo $_SESSION['lname'] ?>" name="" id="" readonly>
                             <small class="form-text text-muted">Last Name</small>
                         </div>
                     </div>

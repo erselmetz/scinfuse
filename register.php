@@ -3,16 +3,40 @@
 session_start();
 
 require_once './db.php';
+$message_error = "";
+$message_success = "";
 
-if(isset($_POST['username']) && isset($_POST['password'])){
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+if(isset($_POST['requestingToRegister'])){
+    // get the input text
+    $fname = htmlentities($_POST['fname'], ENT_QUOTES);
+    $lname = htmlentities($_POST['lname'], ENT_QUOTES);
+    $user = htmlentities($_POST['username'], ENT_QUOTES);
+    $pass = htmlentities($_POST['password'], ENT_QUOTES);
 
-    if( !empty(trim($user)) && !empty(trim($pass)) ){
-        // $result = $db->query("SELECT * FROM users WHERE email='$user' AND WHERE password='$password' LIMIT 1");
-        $_SESSION['username'] = $user;
-        $_SESSION['password'] = $pass;
-        header('Location: ./home.php');
+    // remove spaces
+    $fnameTrim = trim($_POST['fname']);
+    $lnameTrim = trim($_POST['lname']);
+    $userTrim = trim($_POST['username']);
+    $passTrim = trim($_POST['password']);
+
+    // encrypt password
+    $encryptPass = password_hash($passTrim, PASSWORD_DEFAULT);
+
+    // check input if not empty
+    if( !empty($fnameTrim) && !empty($lnameTrim) && !empty($userTrim) && !empty($passTrim) ){
+        
+        // check if the email is already use
+        $getSql = "SELECT * FROM users WHERE email='$userTrim'";
+        $usersResult = $db->query($getSql);
+        if($usersResult->num_rows > 0){
+            $message_error = 'email is already use!!';
+        }else{
+            $insertSql = "INSERT INTO users (fname,lname,email,password) VALUES ('$fnameTrim','$lnameTrim','$userTrim','$encryptPass')";
+            if($db->query($insertSql) === TRUE){
+                $message_success = "Successfuly registered!!";
+                header('refresh:0.4 login.php');
+            }
+        }
     }  
     
 }
@@ -44,6 +68,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     <div class="forms d-flex justify-content-center align-items-center vh-100">
         <div class="col-12 col-md-8">
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <input type="hidden" name="requestingToRegister">
                 <div class="card text-white">
                     <div class="card-body">
                         <h4 class="card-title">Register</h4>
@@ -71,6 +96,22 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                             <input type="password" class="form-control bg-dark text-white" name="password" id="" aria-describedby="helpId" placeholder="">
                             <small id="helpId" class="form-text text-muted">password</small>
                         </div>
+                        <?php 
+                            if($message_success != '' || $message_success != null){
+                                echo "
+                                <div class='alert alert-success' role='alert'>
+                                    <strong>$message_success</strong>
+                                </div>
+                                ";
+                            }
+                            if($message_error != '' || $message_error != null){
+                                echo "
+                                <div class='alert alert-danger' role='alert'>
+                                    <strong>$message_error</strong>
+                                </div>
+                                ";
+                            }
+                        ?>
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
                             <input type="submit" value="Register" class="btn btn-primary">
