@@ -28,7 +28,7 @@ require_once '../db.php';
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="visually-hidden">(current)</span></a>
+                        <a class="nav-link" href="/">Home <span class="visually-hidden">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-white dropdown-toggle text-dark" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">chat</a>
@@ -50,7 +50,7 @@ require_once '../db.php';
         </div>
     </nav>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card col-12 col-md-8">
             <div class="card-body">
                 

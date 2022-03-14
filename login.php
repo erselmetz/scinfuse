@@ -18,6 +18,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
             $row = $result->fetch_assoc();
             if(password_verify($pass,$row['password'])){
                 $message_success = "Successfuly login";
+                $_SESSION['user_id'] = $row['id'];
                 $_SESSION['fname'] = $row['fname'];
                 $_SESSION['lname'] = $row['lname'];
                 $_SESSION['username'] = $row['email'];
