@@ -3,9 +3,7 @@
 session_start();
 
 require_once './db.php';
-
-$message_error = "";
-$message_success = "";
+require_once './globalFunction.php';
 
 if(isset($_POST['username']) && isset($_POST['password'])){
     $user = htmlentities($_POST['username'], ENT_QUOTES);
@@ -21,9 +19,10 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['fname'] = $row['fname'];
                 $_SESSION['lname'] = $row['lname'];
-                $_SESSION['username'] = $row['email'];
+                $_SESSION['user_fullname'] = $row['fname'].' '.$row['lname'];
+                $_SESSION['email'] = $row['email'];
                 $_SESSION['password'] = $row['password'];
-                header('refresh:0.4 /home.php');
+                header('location: /home.php');
             }else{
                 $message_error = "password does not match our cresidentials";
             }
@@ -38,7 +37,8 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Login</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -47,8 +47,9 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     <!-- Css -->
     <link rel="stylesheet" href="./dist/css/style.css">
 
-  </head>
-  <body>
+</head>
+
+<body>
 
     <div class="loginAndRegisterForms d-flex justify-content-center align-items-center vh-100">
         <div class="col-12 col-md-8">
@@ -59,42 +60,36 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                         <!-- email input -->
                         <div class="mb-3">
                             <label for="" class="form-label"></label>
-                            <input type="text" class="form-control bg-dark text-white" name="username" id="" aria-describedby="emailHelpId" placeholder="">
+                            <input type="text" class="form-control bg-dark text-white" name="username" id=""
+                                aria-describedby="emailHelpId" required>
                             <small id="emailHelpId" class="form-text text-muted">email</small>
                         </div>
                         <!-- password input -->
                         <div class="mb-3">
                             <label for="" class="form-label"></label>
-                            <input type="password" class="form-control bg-dark text-white" name="password" id="" aria-describedby="helpId" placeholder="">
+                            <input type="password" class="form-control bg-dark text-white" name="password" id=""
+                                aria-describedby="helpId" required>
                             <small id="helpId" class="form-text text-muted">password</small>
                         </div>
+                        <!-- alert -->
                         <?php 
-                            if($message_success != '' || $message_success != null){
-                                echo "
-                                <div class='alert alert-success' role='alert'>
-                                    <strong>$message_success</strong>
-                                </div>
-                                ";
-                            }
-                            if($message_error != '' || $message_error != null){
-                                echo "
-                                <div class='alert alert-danger' role='alert'>
-                                    <strong>$message_error</strong>
-                                </div>
-                                ";
-                            }
+                            message_alert([
+                                'success'=>$message_success,
+                                'error'=>$message_error
+                            ]);
                         ?>
-                        
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
                             <input type="submit" value="login" class="btn btn-primary">
                             <a href="./register.php">Register</a>
+                            <a href="./forgotPassword.php">forgot password</a>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-      
-  </body>
+
+</body>
+
 </html>

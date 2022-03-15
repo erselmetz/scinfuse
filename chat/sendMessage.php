@@ -14,16 +14,22 @@ if(isset($_POST['requestSendIndividualMessage'])){
 }
 
 // group chat
-if(isset($_POST['refreshChatBoxGroup'])){
-  
+if(isset($_POST['requestSendGroupMessage'])){
+    $message = htmlentities($_POST['messageText']);
+    $gi = htmlentities($_POST['gi']);
+    $sql = "INSERT INTO chat_group_message (group_id,member_id,message) VALUES ('$gi','$_SESSION[user_id]','$message')";
+    if($db->query($sql) === TRUE){
+        echo "success";
+    }
 }
 
 // global chat
 if(isset($_POST['requestSendGlobalMessage'])){
-    $from_name = $_SESSION['fname'].' '.$_SESSION['lname'];
+    $from_name = $_SESSION['user_fullname'];
     $message = htmlentities($_POST['messageText']);
-    $sql = "INSERT INTO chat_global (from_id,from_name,message) VALUES ('$_SESSION[user_id]','$from_name','$message')";
-    if($db->query($sql) === TRUE ){
-        echo 'success';
+    if($globalChat = fopen('../globalChatFile.txt','a')){
+        $text = "<a class='text-decoration-none' href='$_SESSION[user_id]'>$from_name: $message</a><br>\n";
+        fwrite($globalChat, $text);
+        fclose($globalChat);
     }
 }
