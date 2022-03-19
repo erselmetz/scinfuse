@@ -11,7 +11,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/home.php">Home <span class="visually-hidden">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown text-dark">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">chat</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/chat/individual.php">individual</a>
@@ -22,7 +22,7 @@
             </ul>
             <div class="navbar-nav dropdown">
                 <a class="nav-link text-white dropdown-toggle text-dark" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php echo $_SESSION['user_fullname'] ?>
+                    <?php echo $auth->fullname() ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                     <!-- <a class="dropdown-item" href="#"></a> -->

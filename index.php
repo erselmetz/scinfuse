@@ -1,7 +1,7 @@
 <?php
 
-require_once './auth.php';
+require_once '/server/auth.php';
 
 if(isset($_SESSION['username']) && isset($_SESSION['password'])){
-    header('Location: ./home.php');
+    header('location: /home.php');
 }

@@ -1,8 +1,8 @@
 <?php
 
-$host = 'localhost';
-$user = 'root';
-$pass = '';
+$host = 'sg2nlmysql57plsk.secureserver.net:3306';
+$user = 'scinfuse';
+$pass = 'Scinfuse1';
 $dbname = 'scinfuse';
 
 $db = new mysqli($host,$user,$pass,$dbname);

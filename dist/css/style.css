@@ -1,13 +1,9 @@
 @import url('./bootstrap.css');
 
 body{
-    background-image: url('../../image/background.jpg');
+    background-image: url('/image/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.loginAndRegisterForms{
-    
 }
 
 .loginAndRegisterFormsCard{

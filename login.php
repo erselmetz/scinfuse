@@ -1,40 +1,4 @@
-<?php 
-
-session_start();
-
-require_once './db.php';
-require_once './globalFunction.php';
-
-if(isset($_POST['username']) && isset($_POST['password'])){
-    $user = htmlentities($_POST['username'], ENT_QUOTES);
-    $pass = htmlentities($_POST['password'], ENT_QUOTES);
-
-    if( !empty(trim($user)) && !empty(trim($pass)) ){
-        $sql = "SELECT * FROM users WHERE email='$user' LIMIT 1";
-        $result = $db->query($sql);
-        if($result->num_rows > 0){
-            $row = $result->fetch_assoc();
-            if(password_verify($pass,$row['password'])){
-                $message_success = "Successfuly login";
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['fname'] = $row['fname'];
-                $_SESSION['lname'] = $row['lname'];
-                $_SESSION['user_fullname'] = $row['fname'].' '.$row['lname'];
-                $_SESSION['email'] = $row['email'];
-                $_SESSION['password'] = $row['password'];
-                header('location: /home.php');
-            }else{
-                $message_error = "password does not match our cresidentials";
-            }
-            
-        }else{
-            $message_error = "email not found";
-        }
-    }  
-    
-}
-
-?>
+<?php require_once '/server/auth/login.php';?>
 <!doctype html>
 <html lang="en">
 
@@ -81,8 +45,8 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
                             <input type="submit" value="login" class="btn btn-primary">
-                            <a href="./register.php">Register</a>
-                            <a href="./forgotPassword.php">forgot password</a>
+                            <a href="/register.php">Register</a>
+                            <a href="/forgotPassword.php">forgot password?</a>
                         </div>
                     </div>
                 </div>

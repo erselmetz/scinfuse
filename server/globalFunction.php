@@ -41,3 +41,54 @@ function console($params){
     </script>
     ";
 }
+
+function authenticated(){
+    if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+        return true;
+    }
+}
+
+class Auth{
+    
+    public function id(){
+        return $_SESSION['auth_id'];
+    }
+    
+    public function first_name(){
+        return $_SESSION['auth_fname'];
+    }
+    
+    public function last_name(){
+        return $_SESSION['auth_lname'];
+    }
+    
+    public function fullname(){
+        return $_SESSION['auth_fullname'];
+    }
+    
+    public function username(){
+        return $_SESSION['auth_username'];
+    }
+    
+    public function email(){
+        return $_SESSION['auth_email'];
+    }
+    
+    public function password(){
+        return $_SESSION['auth_password'];
+    }
+    
+}
+
+class Server{
+    public function php_self(){
+        return $_SERVER['PHP_SELF'];
+    }
+}
+
+$server = new Server;
+
+// for authenticated only
+if( authenticated() ){
+    $auth = new Auth;
+}
