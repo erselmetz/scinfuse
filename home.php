@@ -1,8 +1,8 @@
 <?php
 
-require_once '/server/auth.php';
-require_once '/server/db.php';
-require_once '/server/globalFunction.php';
+require_once 'server/auth.php';
+require_once 'server/db.php';
+require_once 'server/global_function.php';
 
 ?>
 <!doctype html>
@@ -20,7 +20,7 @@ require_once '/server/globalFunction.php';
 </head>
 
 <body>
-    <?php require_once '/layout/navbar.php'; ?>
+    <?php require_once 'layout/navbar.php'; ?>
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card col-12 col-md-8">
             <div class="card-body">

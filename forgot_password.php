@@ -1,14 +1,14 @@
 <?php 
 
 // comming soon
-require_once './globalFunction.php';
+require_once 'server/global_function.php';
 
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Forgot Password</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -48,7 +48,7 @@ require_once './globalFunction.php';
                         ?>
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
-                            <input type="submit" value="EMAIL PASSWORD RESET LINK" class="btn btn-primary">
+                            <input type="submit" value="SEND EMAIL PASSWORD RESET LINK" class="btn btn-primary">
                         </div>
                     </div>
                 </div>

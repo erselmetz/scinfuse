@@ -1,4 +1,4 @@
-<?php require_once '/server/auth/login.php';?>
+<?php require_once 'server/auth/login.php';?>
 <!doctype html>
 <html lang="en">
 
@@ -10,6 +10,74 @@
 
     <!-- Css -->
     <link rel="stylesheet" href="./dist/css/style.css">
+    <style>
+        .loginAndRegisterFormsCard{
+            padding: 10px;
+            opacity: 1;
+            animation-name: loginAndRegisterForms;
+            animation-duration: 1s;
+        }
+
+        @keyframes loginAndRegisterForms{
+            from {opacity: 0; transform: translateY(-2%);}
+            to {opacity: 1;}
+        }
+
+        .card-title{
+            display: flex;
+            justify-content: center;
+            padding-bottom: 30px;
+        }
+
+        .card-title h4{
+            font-size: 35px;
+        }
+
+        .card-title1{
+            color: white;
+            animation-name: card-title1;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes card-title1{
+            0% {color: white;}
+            50% {color: #00ffff;}
+            100% {color: white;}
+        }  
+
+        label {
+            white-space: pre;
+        }
+
+        #emailHelpId, #helpId{
+            color: white; 
+            font-size: 15px;
+        }
+
+        .login{
+            color: white;
+            background-color: transparent;
+            border: 2px solid #00ffff;
+            padding: 10px;
+        }
+
+        .login:hover{
+            color: black;
+            background-color: #00ffff;
+            transition-duration: 0.4s;
+            transform: translateY(5%);
+        }
+
+        .d-flex a{
+            color: white;
+            text-decoration: none;
+        }
+
+        .d-flex a:hover{
+            color: #00ffff;
+        }
+    </style>
 
 </head>
 
@@ -21,12 +89,12 @@
                 <div class="loginAndRegisterFormsCard text-white">
                     <div class="card-body">
                         <h4 class="card-title">Login</h4>
-                        <!-- email input -->
+                        <!-- username input -->
                         <div class="mb-3">
                             <label for="" class="form-label"></label>
                             <input type="text" class="form-control bg-dark text-white" name="username" id=""
                                 aria-describedby="emailHelpId" required>
-                            <small id="emailHelpId" class="form-text text-muted">email</small>
+                            <small id="emailHelpId" class="form-text text-muted">username</small>
                         </div>
                         <!-- password input -->
                         <div class="mb-3">
@@ -44,9 +112,9 @@
                         ?>
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
-                            <input type="submit" value="login" class="btn btn-primary">
-                            <a href="/register.php">Register</a>
-                            <a href="/forgotPassword.php">forgot password?</a>
+                            <input type="submit" value="login" class="btn btn-primary login">
+                            <a class="register" href="/register.php">Register</a>
+                            <a href="/forgot_password.php">forgot password?</a>
                         </div>
                     </div>
                 </div>
@@ -54,6 +122,6 @@
         </div>
     </div>
 
+    
 </body>
-
 </html>

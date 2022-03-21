@@ -1,8 +1,8 @@
 <?php
 
-require_once '../auth.php';
-require_once '../db.php';
-require_once '../globalFunction.php';
+require_once '../server/auth.php';
+require_once '../server/db.php';
+require_once '../server/global_function.php';
 
 
 // if joinCode is set
@@ -10,7 +10,7 @@ if(isset($_POST['joinCode'])){
 
     // htmlentities
     $code = htmlentities($_POST['joinCode']);
-    $ui = $_SESSION['user_id'];
+    $ui = $auth->id();
     $position = 'member';
 
     // get group chat id
@@ -20,7 +20,7 @@ if(isset($_POST['joinCode'])){
     $gi = $groupInfo['id'];
 
     // should not joined if its the group is owned by the user
-    $sql = "SELECT * FROM chat_group WHERE leader=$_SESSION[user_id]";
+    $sql = "SELECT * FROM chat_group WHERE leader=$ui";
     $result = $db->query($sql);
     if( $result->num_rows > 0 ){
         $message_error = "you know that you can not joined your group";
@@ -127,7 +127,7 @@ if(isset($_POST['joinCode'])){
                         'error'=>$message_error
                     ]); 
                     ?>
-                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
+                    <form action="<?php echo $server->php_self() ?>" method="GET">
                         <!-- input code -->
                         <div class="mb-3">
                             <input type="text" class="form-control" name="code" required autocomplete="off">

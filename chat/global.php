@@ -1,7 +1,7 @@
-<?php
+<?php 
 
-require_once '../auth.php';
-require_once '../db.php';
+require_once '../server/auth.php'; 
+require_once '../server/global_function.php'; 
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,6 @@ require_once '../db.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat | Global</title>
-
     <!-- style link -->
     <link rel="stylesheet" href="/dist/css/style.css">
 </head>
@@ -43,35 +42,40 @@ require_once '../db.php';
     </div>
 
     <script src="/dist/js/bootstrap.js"></script>
+    <script src="/dist/js/jquery.js"></script>
     <script>
         const sendMessageForm = document.querySelector('form[name=sendMessageForm]');
         sendMessageForm.addEventListener('submit',(e) => {
             e.preventDefault();
-            const messageText = document.querySelector('#inputMessageText'); 
-            const data = new FormData();
-            data.append('requestSendGlobalMessage','true');
-            data.append('messageText', messageText.value);
-            fetch('./sendMessage.php',{
-                method: "POST",
-                body: data
-            }).then(() => messageText.value = '');
-        });
-        function refreshChatBox(params) {
-            const data = new FormData();
-            data.append('refreshChatBoxGlobal','true');
+            const messageText = document.querySelector('#inputMessageText');
 
-            fetch('./refreshChatBox.php',{
-                method: "POST",
-                body: data
-            })
-            .then(response => response.text())
-            .then(res => {
-                document.querySelector('#card-body-textarea').innerHTML = res;
-            })
+            $.ajax({
+                type: 'POST',
+                url: '/server/chat/global.php',
+                data: {
+                    requestSendGlobalMessage: true,
+                    messageText: messageText.value
+                },
+                success: function(){
+                    messageText.value = null
+                }
+            });
+        });
+        function retrieveChatBox(params) {
+            $.ajax({
+                type: 'POST',
+                url: '/server/chat/global.php',
+                data: {
+                    retrieveChatBoxGlobal: true
+                },
+                success: function(a){
+                    $('#card-body-textarea').html(a);
+                }
+            });
         }
-        refreshChatBox();
+        retrieveChatBox();
         setInterval(() => {
-            refreshChatBox();
+            retrieveChatBox();
         }, 1000);
     </script>
 </body>

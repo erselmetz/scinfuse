@@ -1,4 +1,4 @@
-<?php require_once '/server/auth/register.php';?>
+<?php require_once 'server/auth/register.php';?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,7 +18,61 @@
         .card{
             background-color: rgba(0,0,0,0.5);
         }
+        <style>
+
+        .forms{
+            background-image: url('../image/background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .card{
+            background-color: rgba(0,0,0,0.5);
+            padding: 10px;
+            opacity: 1;
+            animation-name: forms;
+            animation-duration: 1s;
+        }
+
+        @keyframes forms{
+            from {opacity: 0; transform: translateY(-2%);}
+            to {opacity: 1;}
+        }
+
+        .card-title{
+            text-align: center;
+            font-size: 35px;
+            padding-bottom: 30px;
+        }
+
+        .form-text, #emailHelpId, #helpId{
+            color: white; 
+            font-size: 15px;
+        }
+
+        .register{
+            color: white;
+            background-color: transparent;
+            border: 2px solid #00ffff;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .register:hover{
+            color: black;
+            background-color: #00ffff;
+            transition-duration: 0.4s;
+            transform: translateY(5%);
+        }
+
+        .login:hover{
+            color: black;
+            background-color: #00ffff;
+            transition-duration: 0.4s;
+            transform: translateY(5%);
+        }
+
     </style>
+    
   </head>
   <body>
 
@@ -61,8 +115,8 @@
                         ?>
                         <!-- submit button -->
                         <div class="d-flex align-items-center justify-content-start gap-4">
-                            <input type="submit" value="Register" class="btn btn-primary">
-                            <a href="./login.php">Login</a>
+                            <input type="submit" value="Register" class="btn btn-primary register">
+                            <a class="login" href="./login.php">Login</a>
                         </div>
                     </div>
                 </div>

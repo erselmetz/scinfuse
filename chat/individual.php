@@ -1,7 +1,8 @@
 <?php
 
-require_once '../auth.php';
-require_once '../db.php';
+require_once '../server/auth.php';
+require_once '../server/db.php';
+require_once '../server/global_function.php';
 
 ?>
 <!DOCTYPE html>
@@ -19,27 +20,12 @@ require_once '../db.php';
 
     <?php require_once '../layout/navbar.php'; ?>
     
-    <?php if(isset($_GET['id'])){ 
-        //check the if did exist if not then redirect to individual page
-        $sqlGetid = "SELECT * FROM users WHERE id='$_GET[id]' AND id!='$_SESSION[user_id]' LIMIT 1";
-        $result = $db->query($sqlGetid);
-        if($result->num_rows < 1){
-            header("Location: /chat/individual.php");
-        }
-    ?>
+    <?php if(isset($_GET['id'])){ ?>
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="card col-12 col-md-8 h-75">
                 <div class="card-header">
                     <h4>
                         <a class="text-decoration-none" href="/chat/individual.php">&lt;</a>
-                        <?php
-                            $sqlGetName = "SELECT * FROM users WHERE id=$_GET[id] LIMIT 1";
-                            $result = $db->query($sqlGetName);
-                            if ( $result->num_rows > 0 ) {
-                                $row = $result->fetch_assoc();
-                                echo "<span>$row[fname] $row[lname]</span>";
-                            }
-                        ?>
                     </h4>
                 </div>
                 <div class="card-body overflow-auto">
@@ -63,62 +49,119 @@ require_once '../db.php';
                 </div>
             </div>
         </div>
+        <script src="/dist/js/jquery.js"></script>
         <script>
+            // check id
+            $.ajax({
+                type: 'POST',
+                url: '/server/chat/individual.php',
+                data: {
+                    requestToCheckUserId: true,
+                    token: '<?php echo $auth->token() ?>',
+                    id: '<?php echo $_GET['id'] ?>'
+                },
+                success: function(response){
+                    const result = JSON.parse(response);
+                    console.log(response);
+                    if(result.status == 'error'){
+                        window.location.href = '/chat/individual.php';
+                    }
+                    const name = result.name;
+                    $('.card-header h4').append(name);
+                }
+            });
             // send message
             const sendMessageForm = document.querySelector('form[name=sendMessageForm]');
             sendMessageForm.addEventListener('submit',(e) => {
                 e.preventDefault();
-                const messageText = document.querySelector('#inputMessageText'); 
-                const data = new FormData();
-
-                data.append('requestSendIndividualMessage','true');
-                data.append('messageText', messageText.value);
-                data.append('to_id', <?php echo $_GET['id'] ?>);
-
-                fetch('./sendMessage.php',{
-                    method: "POST",
-                    body: data
-                }).then(res => res.text())
-                .then(res => {
-                    messageText.value = '';
-                    console.log(res);
+                $.ajax({
+                    type: 'POST',
+                    url: '/server/chat/individual.php',
+                    data: {
+                        requestSendIndividualMessage: true,
+                        token: '<?php echo $auth->token() ?>',
+                        to_id: '<?php echo $_GET['id'] ?>',
+                        messageText: $('#inputMessageText').val(),
+                    },
+                    success: function(){
+                        $('#inputMessageText').val(null);
+                    }
                 });
             });
             // refresh message box
             function refreshChatBox(params) {
-                const data = new FormData();
+                $.ajax({
+                    type: 'POST',
+                    url: '/server/chat/individual.php',
+                    data: {
+                        retrieveChatBoxIndividual: true,
+                        token: '<?php echo $auth->token() ?>',
+                        id: '<?php echo $_GET['id'] ?>',
+                    },
+                    success: function(res){
+                        const result = JSON.parse(res);
+                        let text = '';
 
-                data.append('refreshChatBoxIndividual','true');
-                data.append('id', <?php echo $_GET['id'] ?>);
-
-                fetch('./refreshChatBox.php',{
-                    method: "POST",
-                    body: data
-                })
-                .then(response => response.text())
-                .then(res => {
-                    document.querySelector('#card-body-textarea').innerHTML = res;
-                })
+                        result.forEach( res => {
+                            if(res.from == <?php echo $auth->id() ?>){
+                                text += `
+                                <div class='d-flex justify-content-end'>
+                                    <div class='p-1 bg-primary text-white rounded mb-1'>
+                                        `+res.message+`    
+                                    </div>
+                                </div>
+                                `;
+                            }else{
+                                text += `
+                                <div class='d-flex justify-content-start'>
+                                    <div class='p-1 bg-primary text-white rounded mb-1'>
+                                        `+res.message+`
+                                    </div>
+                                </div>
+                                `;
+                            }
+                        });
+                        $('#card-body-textarea').html(text);
+                    }
+                });
             }
             refreshChatBox();
             setInterval(() => {
                 refreshChatBox();
             }, 1000);
         </script>
+        <?php 
+        // =================================================================================================
+        ?>
     <?php }else{ ?>
+
         <div class='d-flex justify-content-center align-items-center vh-100'>
             <div class='card col-12 col-md-8 h-75'>
-                <div class='card-body overflow-auto'>
-                    <?php 
-                        $userAvailable = $db->query("SELECT * FROM users WHERE id != '$_SESSION[user_id]' ");
-                        while($row = $userAvailable->fetch_assoc()){
-                            echo "<a href='individual.php?id=$row[id]'>$row[fname] $row[lname]</a><br>";
-                        }
-                    ?>
-                </div>
+                <div class='card-body overflow-auto'></div>
             </div>
         </div>
-        
+        <script src="/dist/js/jquery.js"></script>
+        <script>
+            // get user
+            $.ajax({
+                type: 'POST',
+                url: '/server/chat/individual.php',
+                data: {
+                    requestToGetUser: true,
+                    token: '<?php echo $auth->token() ?>'
+                },
+                success: function(response){
+                    const result = JSON.parse(response);
+                    let user = '';
+                    result.forEach( res => {
+                        user += `<a href='individual.php?id=`+res.id+`'>`+res.name+`</a><br>`;
+                    });
+                    $('.card-body').html(user);
+                }
+            });
+            
+        </script>
+
     <?php } ?>
 
     <script src="/dist/js/bootstrap.js"></script>

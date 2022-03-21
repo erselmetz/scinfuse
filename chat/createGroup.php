@@ -1,35 +1,4 @@
-<?php
-
-require_once '../auth.php';
-require_once '../db.php';
-require_once '../globalFunction.php';
-
-$groupCode = randomString(3).'-'.randomString(4).'-'.randomString(3);
-
-if(isset($_POST['requestToCreateGroup'])){
-    if(isset($_POST['groupStatus'])){
-        $name = htmlentities($_POST['groupName']);
-        $status = htmlentities($_POST['groupStatus']);
-        $code = $groupCode;
-
-        // trim
-        $nameTrim = trim($name);
-        $statusTrim = trim($status);
-
-        if( !empty($nameTrim)&&!empty($statusTrim) ){
-            $sqlGroupChat = "INSERT INTO chat_group (name,status,code,leader) VALUES ('$name','$status','$code','$_SESSION[user_id]')";
-            if( $db->query($sqlGroupChat) === TRUE ){
-                header('location: ./group.php');
-            }
-
-        }
-    }else{
-        $message_error = "select group status";
-    }
-
-}
-
-?>
+<?php require_once '../server/chat/create_group.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

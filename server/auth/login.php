@@ -2,8 +2,8 @@
 
 session_start();
 
-require_once '/server/db.php';
-require_once '/server/globalFunction.php';
+require_once 'server/global_function.php';
+require_once 'server/db.php';
 
 if(isset($_POST['username']) && isset($_POST['password'])){
     $user = htmlentities($_POST['username'], ENT_QUOTES);
@@ -23,6 +23,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                 $_SESSION['auth_email'] = $row['email'];
                 $_SESSION['auth_username'] = $row['email'];
                 $_SESSION['auth_password'] = $row['password'];
+                $_SESSION['auth_token'] = randomString(40);
                 header('location: /home.php');
             }else{
                 $message_error = "password does not match our cresidentials";

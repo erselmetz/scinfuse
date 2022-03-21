@@ -43,13 +43,16 @@ function console($params){
 }
 
 function authenticated(){
-    if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+    if(isset($_SESSION['auth_username']) && isset($_SESSION['auth_password'])){
         return true;
     }
 }
 
+
+// ==========================================================
+ 
 class Auth{
-    
+
     public function id(){
         return $_SESSION['auth_id'];
     }
@@ -76,6 +79,10 @@ class Auth{
     
     public function password(){
         return $_SESSION['auth_password'];
+    }
+
+    public function token(){
+        return $_SESSION['auth_token'];
     }
     
 }

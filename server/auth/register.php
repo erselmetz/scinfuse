@@ -2,8 +2,8 @@
 
 session_start();
 
-require_once '/server/db.php';
-require_once '/server/globalFunction.php';
+require_once 'server/db.php';
+require_once 'server/global_function.php';
 
 if(isset($_POST['requestingToRegister'])){
     // get the input text
