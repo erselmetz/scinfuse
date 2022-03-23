@@ -22,7 +22,7 @@ require_once '../server/global_function.php';
     
     <?php if(isset($_GET['id'])){ ?>
         <div class="d-flex justify-content-center align-items-center vh-100">
-            <div class="card col-12 col-md-8 h-75">
+            <div class="card col-12 col-md-11 h-75">
                 <div class="card-header">
                     <h4>
                         <a class="text-decoration-none" href="/chat/individual.php">&lt;</a>
@@ -35,14 +35,14 @@ require_once '../server/global_function.php';
                 <div class="card-footer">
                     <form name="sendMessageForm">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-12 col-md-10">
                                 <div class="form-floating">
                                     <input id="inputMessageText" class="form-control" placeholder="Leave a comment here" id="floatingTextarea">
                                     <label for="floatingTextarea">Send message</label>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <button class="btn btn-primary">send</button>
+                            <div class="col">
+                                <input type="submit" class="btn btn-primary h-100 w-100" value="send">
                             </div>
                         </div>
                     </form>
@@ -136,7 +136,7 @@ require_once '../server/global_function.php';
     <?php }else{ ?>
 
         <div class='d-flex justify-content-center align-items-center vh-100'>
-            <div class='card col-12 col-md-8 h-75'>
+            <div class='card col-12 col-md-11 h-75'>
                 <div class='card-body overflow-auto'></div>
             </div>
         </div>

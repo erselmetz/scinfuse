@@ -1,7 +1,14 @@
 <?php
 
-session_start();
+if(isset($_POST['requestToLogout'])){
+    if($_POST['requestToLogout'] == true){
+        session_start();
 
-session_destroy();
+        session_destroy();
 
-header('Location: /login.php');
+        $data = [];
+        $data['login'] = false;
+
+        echo json_encode($data);
+    }
+}

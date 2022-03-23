@@ -10,8 +10,8 @@ if(isset($_POST['requestSendGlobalMessage'])){
     $id = $auth->id();
     $from_name = $auth->fullname();
     $message = htmlentities($_POST['messageText']);
-    if($globalChat = fopen('globalChatFile.txt','a')){
-        $text = "<a class='text-decoration-none' href='$id'>$from_name: $message</a><br>\n";
+    if($globalChat = fopen('globalChatFile.txt','a+')){
+        $text = "<a class='text-decoration-none'>$from_name: </a><span>$message</span><br>\n";
         fwrite($globalChat, $text);
         fclose($globalChat);
     }

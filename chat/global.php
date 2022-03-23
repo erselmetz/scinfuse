@@ -19,7 +19,7 @@ require_once '../server/global_function.php';
     <?php require_once '../layout/navbar.php'; ?>
 
     <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="card col-12 col-md-8 h-75">
+        <div class="card col-12 col-md-11 h-75">
             <div class="card-body h-100 overflow-auto">
                 <div id="card-body-textarea"></div>
             </div>
@@ -32,8 +32,8 @@ require_once '../server/global_function.php';
                                 <label for="floatingTextarea">Send message</label>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary">send</button>
+                        <div class="col">
+                            <input type="submit" class="btn btn-primary h-100 w-100" value="send">
                         </div>
                     </div>
                 </form>

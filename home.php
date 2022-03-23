@@ -24,21 +24,15 @@ require_once 'server/global_function.php';
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card col-12 col-md-8">
             <div class="card-body">
-                <h4 class="card-title">User Info</h4>
+                <h4 class="card-title">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="">User Info</div>
+                    </div>
+                </h4>
                 
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" value="<?php echo $auth->first_name() ?>" name="" id="" readonly>
-                            <small class="form-text text-muted">First Name</small>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" value="<?php echo $auth->last_name() ?>" name="" id="" readonly>
-                            <small class="form-text text-muted">Last Name</small>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" value="<?php echo $auth->fullname() ?>" name="" id="" readonly>
+                    <small class="form-text text-muted">Name</small>
                 </div>
 
                 <div class="mb-3">
@@ -47,7 +41,7 @@ require_once 'server/global_function.php';
                 </div>
 
                 <div class="mb-3">
-                    <input type="password" class="form-control" value="<?php echo $auth->password() ?>" name="" id="" readonly>
+                    <input type="password" class="form-control" value="********" name="" id="" readonly>
                     <small class="form-text text-muted">Password</small>
                 </div>
                 

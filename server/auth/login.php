@@ -2,36 +2,46 @@
 
 session_start();
 
-require_once 'server/global_function.php';
-require_once 'server/db.php';
+require_once '../global_function.php';
+require_once '../db.php';
 
-if(isset($_POST['username']) && isset($_POST['password'])){
-    $user = htmlentities($_POST['username'], ENT_QUOTES);
-    $pass = htmlentities($_POST['password'], ENT_QUOTES);
+if(isset($_POST['u']) && isset($_POST['p'])){
+    $user = htmlentities($_POST['u'], ENT_QUOTES);
+    $pass = htmlentities($_POST['p'], ENT_QUOTES);
+
+    $data = [];
+    $data['status'] = false;
+    $data['email'] = false;
+    $data['password'] = false;
 
     if( !empty(trim($user)) && !empty(trim($pass)) ){
-        $sql = "SELECT * FROM users WHERE email='$user' LIMIT 1";
+
+        $sql = "SELECT * FROM users WHERE email='$user' or username='$user' LIMIT 1";
         $result = $db->query($sql);
         if($result->num_rows > 0){
+            // email true
+            $data['email'] = true;
+            
             $row = $result->fetch_assoc();
             if(password_verify($pass,$row['password'])){
-                $message_success = "Successfuly login";
+                
                 $_SESSION['auth_id'] = $row['id'];
                 $_SESSION['auth_fname'] = $row['fname'];
                 $_SESSION['auth_lname'] = $row['lname'];
                 $_SESSION['auth_fullname'] = $row['fname'].' '.$row['lname'];
                 $_SESSION['auth_email'] = $row['email'];
-                $_SESSION['auth_username'] = $row['email'];
+                $_SESSION['auth_username'] = $row['username'];
                 $_SESSION['auth_password'] = $row['password'];
                 $_SESSION['auth_token'] = randomString(40);
-                header('location: /home.php');
-            }else{
-                $message_error = "password does not match our cresidentials";
+                
+                // status and password true
+                $data['status'] = true;
+                $data['password'] = true;
+                // return username and password
+                $data['auth_username'] = $row['username'];
+                $data['auth_password'] = $row['password'];
             }
-            
-        }else{
-            $message_error = "email not found";
         }
-    }  
-    
+        echo json_encode($data);
+    }
 }

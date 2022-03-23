@@ -99,8 +99,13 @@
                         </div>
                         <!-- email input -->
                         <div class="mb-3">
-                            <input type="text" class="form-control bg-dark text-white" name="username" id="" aria-describedby="emailHelpId" placeholder=""required>
+                            <input type="text" class="form-control bg-dark text-white" name="email" id="" aria-describedby="emailHelpId" placeholder=""required>
                             <small id="emailHelpId" class="form-text text-muted">email</small>
+                        </div>
+                        <!-- username input -->
+                        <div class="mb-3">
+                            <input type="text" class="form-control bg-dark text-white" name="username" id="" aria-describedby="emailHelpId" placeholder=""required>
+                            <small id="emailHelpId" class="form-text text-muted">username</small>
                         </div>
                         <!-- password input -->
                         <div class="mb-3">
@@ -110,7 +115,10 @@
                         <?php 
                             message_alert([
                                 'success'=>$message_success,
-                                'error'=>$message_error
+                                'error'=>$email_error,
+                            ]);
+                            message_alert([
+                                'error'=>$username_error
                             ]);
                         ?>
                         <!-- submit button -->

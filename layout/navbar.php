@@ -25,7 +25,8 @@
                     <?php echo $auth->fullname() ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
-                    <!-- <a class="dropdown-item" href="#"></a> -->
+                    <a class="dropdown-item" href="/manage_account.php">Manage Account</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/logout.php">logout</a>
                 </div>
             </div>

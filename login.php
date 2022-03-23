@@ -1,4 +1,3 @@
-<?php require_once 'server/auth/login.php';?>
 <!doctype html>
 <html lang="en">
 
@@ -85,8 +84,8 @@
 
     <div class="loginAndRegisterForms d-flex justify-content-center align-items-center vh-100">
         <div class="col-12 col-md-8">
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <div class="loginAndRegisterFormsCard text-white">
+            <form name="login" method="post">
+                <div class="transparent-1 text-white">
                     <div class="card-body">
                         <h4 class="card-title">Login</h4>
                         <!-- username input -->
@@ -104,17 +103,23 @@
                             <small id="helpId" class="form-text text-muted">password</small>
                         </div>
                         <!-- alert -->
-                        <?php 
-                            message_alert([
-                                'success'=>$message_success,
-                                'error'=>$message_error
-                            ]);
-                        ?>
+                        <div class="alert_username alert alert-danger d-none" role="alert">
+                            <strong>username or email not found</strong>
+                        </div>
+                        <div class="alert_password alert alert-danger d-none" role="alert">
+                            <strong>password does not match our cresidentials</strong>
+                        </div>
+                        
                         <!-- submit button -->
-                        <div class="d-flex align-items-center justify-content-start gap-4">
-                            <input type="submit" value="login" class="btn btn-primary login">
-                            <a class="register" href="/register.php">Register</a>
-                            <a href="/forgot_password.php">forgot password?</a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center justify-content-start gap-4 w-100">
+                                <input type="submit" value="login" class="btn btn-primary login">
+                                <a class="register" href="/register.php">Register</a>
+                                <a href="/forgot_password.php">forgot password?</a>
+                            </div>
+                            <div class="loader spinner-border text-secondary d-none" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,6 +127,7 @@
         </div>
     </div>
 
-    
+    <script src="/dist/js/jquery.js"></script>
+    <script src="/dist/js/auth/login.js"></script>
 </body>
 </html>
