@@ -1,0 +1,18 @@
+
+/* Bone */
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background: rgb(233, 233, 234);
+}
+
+.ap-prez-container {
+    position: relative;
+    height: 100%;
+    margin-top: 100px;
+    z-index: 0;
+}

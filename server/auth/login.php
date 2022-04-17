@@ -30,6 +30,7 @@ if(isset($_POST['u']) && isset($_POST['p'])){
                 $_SESSION['auth_lname'] = $row['lname'];
                 $_SESSION['auth_fullname'] = $row['fname'].' '.$row['lname'];
                 $_SESSION['auth_email'] = $row['email'];
+                $_SESSION['auth_phone_number'] = $row['phone_number'];
                 $_SESSION['auth_username'] = $row['username'];
                 $_SESSION['auth_password'] = $row['password'];
                 $_SESSION['auth_token'] = randomString(40);
@@ -40,6 +41,7 @@ if(isset($_POST['u']) && isset($_POST['p'])){
                 // return username and password
                 $data['auth_username'] = $row['username'];
                 $data['auth_password'] = $row['password'];
+                $data['auth_id'] = $row['id'];
             }
         }
         echo json_encode($data);

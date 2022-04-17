@@ -1,33 +1,73 @@
 <?php
 
+session_start();
+
 require_once 'db.php';
 require_once 'global_function.php';
 
-if(isset($_POST['uAndPparameter'])){
-    if($_POST['uAndPparameter'] == true){
-        $u = htmlentities($_POST['u']);
-        $p = htmlentities($_POST['p']);
+// profile
+if( isset($_POST['update_profile']) ){
+    if( $_POST['update_profile'] == true ){
+        $user_id = $auth->id();
 
+        $username = htmlentities($_POST['username']);
+        $number = htmlentities($_POST['number']);
+        
         $data = [];
+        $data['status'] = false;
+        $data['username'] = $username;
+        $data['number'] = $number;
 
-        // check u and p parameter
-        $sql = "SELECT * FROM users WHERE email='$u' or username='$u' AND password='$p' LIMIT 1";
-        $result = $db->query($sql);
-        if($result->num_rows > 0){
+        $sql = "UPDATE users SET username='$username',phone_number='$number' WHERE id='$user_id'";
+        if( $db->query($sql) == TRUE ){
             $data['status'] = true;
-        }else{
-            $data['status'] = false;
+
+            // set value
+            $auth->set_username($username);
+            $auth->set_phone_number($number);
         }
 
         echo json_encode($data);
     }
 }
 
+
+// email
+if(isset($_POST['change_email'])){
+    if($_POST['change_email'] == true){
+
+        $user_id = $auth->id();
+        $old_email = $auth->email();
+        $new_email = htmlentities($_POST['new_email']);
+
+        $data = [];
+        $data['email_changed'] = false;
+
+        if( $old_email != $new_email ){
+            if( !empty($new_email) ){
+                $data['same_email'] = false;
+
+                $sql = "UPDATE users SET email='$new_email' WHERE id='$user_id' LIMIT 1";
+                $result = $db->query($sql);
+                if($result === true){
+                    $data['email_changed'] = true; 
+                    $auth->set_email($new_email);
+                }
+            }
+        }else{
+            $data['same_email'] = true;
+        }
+
+        echo json_encode($data);
+    }
+}
+// password
 if(isset($_POST['submit_change_password'])){
     if($_POST['submit_change_password'] == true){
 
-        $u = htmlentities($_POST['u']);
-        $p = htmlentities($_POST['p']);
+        // $u = htmlentities($_POST['u']);
+        $u = $auth->email();
+        $p = $auth->password();
         $old = htmlentities($_POST['old_password']);
         $new = htmlentities($_POST['new_password']);
         $repeat_new = htmlentities($_POST['repeat_new_password']);
@@ -57,3 +97,4 @@ if(isset($_POST['submit_change_password'])){
         echo json_encode($data);
     }
 }
+

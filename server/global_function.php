@@ -76,6 +76,10 @@ class Auth{
     public function email(){
         return $_SESSION['auth_email'];
     }
+
+    public function phone_number(){
+        return $_SESSION['auth_phone_number'];
+    }
     
     public function password(){
         return $_SESSION['auth_password'];
@@ -83,6 +87,42 @@ class Auth{
 
     public function token(){
         return $_SESSION['auth_token'];
+    }
+    // set value
+    public function set_id($params){
+        $_SESSION['auth_id'] = $params;
+    }
+    
+    public function set_first_name($params){
+        $_SESSION['auth_fname'] = $params;
+    }
+    
+    public function set_last_name($params){
+        $_SESSION['auth_lname'] = $params;
+    }
+    
+    public function set_fullname($params){
+        $_SESSION['auth_fullname'];
+    }
+    
+    public function set_username($params){
+        $_SESSION['auth_username'] = $params;
+    }
+    
+    public function set_email($params){
+        $_SESSION['auth_email'] = $params;
+    }
+
+    public function set_phone_number($params){
+        $_SESSION['auth_phone_number'] = $params;
+    }
+    
+    public function set_password($params){
+        $_SESSION['auth_password'] = $params;
+    }
+
+    public function set_token($params){
+        $_SESSION['auth_token'] = $params;
     }
     
 }
