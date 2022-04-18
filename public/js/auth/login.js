@@ -1,6 +1,7 @@
 import { app } from "../app.js";
 
 export const login_area = () => {
+    app.title('Scinfuse | login');
     app.view('auth/login',() => {
         try_to_login();
     });
@@ -16,7 +17,7 @@ const try_to_login = () => {
         const password = $('input[name=password]');
         $.ajax({
             type: 'POST',
-            url: app.server("auth/login.php"),
+            url: app.server("login"),
             data: {
                 u: username.val(),
                 p: password.val()
@@ -32,6 +33,9 @@ const try_to_login = () => {
                     // username or email not found
                     alert_u.removeClass('d-none');
                     alert_p.addClass('d-none');
+
+                    username.val(null);
+                    password.val(null);
                 }else if(res.email == true){
                     if(res.password == false){
                         // password does not match our cresidentials
@@ -44,12 +48,6 @@ const try_to_login = () => {
 
                 if(res.status == true){
                     window.location.href = '/home';
-                    const auth = {
-                        username: res.auth_username,
-                        password: res.auth_password,
-                        id: res.auth_id
-                    };
-                    localStorage.setItem('auth',JSON.stringify(auth));
                 }
             }
         });

@@ -2,13 +2,6 @@ class App{
     server(params){
         return '/server/'+params;
     }
-    array_from_localStorage(params){
-        const a = localStorage.getItem(params);
-        if(a != null){
-            const b = JSON.parse(a);
-            return b;
-        }
-    }
     view(params,callback){
         $('.main').load('/public/views/'+params+'.html',() => {
             callback();
@@ -41,22 +34,25 @@ class App{
             </div>
         </div>`);
     }
+    navbar(){
+        $('body').load('/public/views/layout/navbar.html .container');
+    }
+    title(params){
+        const title = $('title');
+        title.text(params);
+    }
 }
 
 class Auth{
     constructor(){
 
     }
-    info(){
-        return app.array_from_localStorage('auth');
-    }
     validate(){
         $.ajax({
             type: "POST",
-            url: app.server("auth.php"),
+            url: app.server("validate"),
             data: {
                 check_auth: true,
-                auth: JSON.stringify(this.info())
             },
             beforeSend:function(){
                 $('.main').hide();
@@ -64,7 +60,7 @@ class Auth{
             success: function (response) {
                 const res = JSON.parse(response);
     
-                if(res.status == false){
+                if(res.login == false){
                     window.location.href = '/login';
                 }else{
                     $('.main').show();
@@ -75,7 +71,7 @@ class Auth{
     logout(){
         $.ajax({
             type: "POST",
-            url: "/server/auth/logout.php",
+            url: app.server("logout"),
             data: {
                 logout: true
             },
