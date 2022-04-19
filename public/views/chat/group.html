@@ -1,95 +1,59 @@
-<?php 
-
-require_once '../server/auth.php';
-require_once '../server/db.php';
-require_once '../server/global_function.php';
-
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat | Group</title>
-
-    <!-- style link -->
-    <link rel="stylesheet" href="/dist/css/style.css">
-</head>
-<body>
-    <?php require_once '../layout/navbar.php'; ?>
-
-    <div class="Group_Message d-flex justify-content-center align-items-center vh-100">
-        <div class="card col-12 col-md-11 h-75" id="group-chat">
-            <div class="card-header d-flex justify-content-between">
-                <a type="button" class="btn btn-primary" href="group.php">&lt;</a>
-                <div class="dropdown">
-                    <button class="btn btn-primary" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        &vellip;
-                    </button>
-                    <div class="dropdown-menu" id="moreOptionHeader" aria-labelledby="triggerId"></div>
+<div class="Group_Message d-flex justify-content-center align-items-center vh-100">
+    <div class="card col-12 col-md-11 h-75" id="group-chat">
+        <div class="card-header d-flex justify-content-between">
+            <a type="button" class="btn btn-primary" href="group.php">&lt;</a>
+            <div class="dropdown">
+                <button class="btn btn-primary" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    &vellip;
+                </button>
+                <div class="dropdown-menu" id="moreOptionHeader" aria-labelledby="triggerId"></div>
+            </div>
+        </div>
+        <div class="card-body overflow-auto" id="card-body-textarea">
+            <div class="d-flex align-items-center justify-content-center w-100 h-100">
+                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-            <div class="card-body overflow-auto" id="card-body-textarea">
-                <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <form name="sendMessageForm">
-                    <div class="row">
-                        <div class="col-12 col-md-10">
-                            <div class="form-floating">
-                                <input id="inputMessageText" class="form-control" autocomplete="off" placeholder="Leave a comment here" id="floatingTextarea">
-                                <label for="floatingTextarea">Send message</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <input type="submit" class="button btn-send h-100 w-100" value="Send">
+        </div>
+        <div class="card-footer">
+            <form name="sendMessageForm">
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                        <div class="form-floating">
+                            <input id="inputMessageText" class="form-control" autocomplete="off" placeholder="Leave a comment here" id="floatingTextarea">
+                            <label for="floatingTextarea">Send message</label>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- group list -->
-    <div class="Group_List d-flex justify-content-center align-items-center vh-100">
-        <div class="card col-12 col-md-11 h-75" id="group">
-            <div class="card-header">
-                <div class="btn-group">
-                    <div class="create">
-                        <a type="button" class="button create-btn" href="./createGroup.php">Create group</a>
-                    </div>
-                    <div class="join">
-                        <a type="button" class="button join-btn" href="./joinGroup.php">Join group</a>
+                    <div class="col">
+                        <input type="submit" class="button btn-send h-100 w-100" value="Send">
                     </div>
                 </div>
-            </div>
-            <div class="card-body overflow-auto">
-                <div class=" d-flex align-items-center justify-content-center w-100 h-100">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- group list -->
+<div class="Group_List d-flex justify-content-center align-items-center vh-100">
+    <div class="card col-12 col-md-11 h-75" id="group">
+        <div class="card-header">
+            <div class="btn-group">
+                <div class="create">
+                    <a type="button" class="button create-btn" href="./createGroup.php">Create group</a>
+                </div>
+                <div class="join">
+                    <a type="button" class="button join-btn" href="./joinGroup.php">Join group</a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="chat">
-        <img src="/image/Chat icon.png" />
-        <div class="chat-content">
-            <a href="/chat/individual.php">Individual</a>
-            <a href="/chat/group.php">Group</a>
-            <a href="/chat/global.php">Global</a>
+        <div class="card-body overflow-auto">
+            <div class=" d-flex align-items-center justify-content-center w-100 h-100">
+                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script src="/dist/js/bootstrap.js"></script>
-    <script src="/dist/js/jquery.js"></script>
-    <script src="/dist/js/chat/group.js"></script>
-</body>
-</html>
+</div>

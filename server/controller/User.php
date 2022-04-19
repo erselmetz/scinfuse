@@ -99,5 +99,13 @@ class User{
             }
         }
     }
+    // USER INO
+    public static function user_info(){
+        $data = [];
+        if($_POST['fullname']){
+            $data['fullname'] = $_SESSION['auth_fullname'];
+        }
+        echo json_encode($data);
+    }
 
 }

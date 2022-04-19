@@ -1,17 +1,25 @@
+import { app, auth } from "../app.js";
+
+export const chat_individual_area = () => {
+    auth.validate();
+    app.navbar();
+    app.chats_button();
+    app.view('chat/global',() => {
+        chat_global.run();
+    });
+}
+
 // ========== url ==========
 const url_string = window.location.href;
 const url = new URL(url_string);
 const id = url.searchParams.get('id');
-
-// ========== Auth Info ==========
-const auth = JSON.parse(localStorage.getItem('auth'));
 
 class UserAvailable{
     get(){
         // get user
         $.ajax({
             type: 'POST',
-            url: '/server/chat/individual.php',
+            url: app.server("chat/individual/get/user"),
             data: {
                 requestToGetUser: true,
                 limit: 10,
@@ -36,7 +44,7 @@ class MessageArea{
     check_id(){
         $.ajax({
             type: 'POST',
-            url: '/server/chat/individual.php',
+            url: app.server("chat/individual/validate/user"),
             data: {
                 requestToCheckUserId: true,
                 id: id
@@ -44,7 +52,7 @@ class MessageArea{
             success: function(response) {
                 const result = JSON.parse(response);
                 if (result.status == 'error') {
-                    window.location.href = '/chat/individual.php';
+                    window.location.href = '/chat/individual';
                 }
                 const name = result.name;
                 $('.card-header h4').append(name);
@@ -57,7 +65,7 @@ class MessageArea{
             e.preventDefault();
             $.ajax({
                 type: 'POST',
-                url: '/server/chat/individual.php',
+                url: app.server("chat/individual/send/message"),
                 data: {
                     requestSendIndividualMessage: true,
                     to_id: id,
@@ -73,7 +81,7 @@ class MessageArea{
         const refreshChatBox = () => {
             $.ajax({
                 type: 'POST',
-                url: '/server/chat/individual.php',
+                url: app.server("chat/individual/retrieve/message"),
                 data: {
                     retrieveChatBoxIndividual: true,
                     id: id,
@@ -117,7 +125,7 @@ class Search{
 
         $.ajax({
             type: 'POST',
-            url: '/server/chat/individual.php',
+            url: app.server("chat/individual/search/user"),
             data: {
                 searchToGetUser: true,
                 limit: 10,

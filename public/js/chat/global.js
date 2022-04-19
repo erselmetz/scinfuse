@@ -1,3 +1,14 @@
+import { app, auth } from "../app.js";
+
+export const chat_global_area = () => {
+    auth.validate();
+    app.navbar();
+    app.chats_button();
+    app.view('chat/global',() => {
+        chat_global.run();
+    });
+}
+
 class GlobalChat{
     run(){
         const sendMessageForm = $('form[name=sendMessageForm]');
@@ -7,7 +18,7 @@ class GlobalChat{
 
             $.ajax({
                 type: 'POST',
-                url: '/server/chat/global.php',
+                url: app.server('chat/global/send/message'),
                 data: {
                     requestSendGlobalMessage: true,
                     messageText: messageText.val()
@@ -22,7 +33,7 @@ class GlobalChat{
         function retrieveChatBox(params) {
             $.ajax({
                 type: 'POST',
-                url: '/server/chat/global.php',
+                url: app.server("chat/global/retrieve/message"),
                 data: {
                     retrieveChatBoxGlobal: true
                 },
@@ -56,4 +67,3 @@ class GlobalChat{
 }
 
 const chat_global = new GlobalChat;
-chat_global.run();

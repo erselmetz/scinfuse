@@ -1,16 +1,25 @@
+import { app, auth } from "../app.js";
+
+export const chat_group_area = () => {
+    auth.validate();
+    app.navbar();
+    app.chats_button();
+    app.view('chat/global',() => {
+        run();
+    });
+}
+
 // get the url
 const url_string = window.location.href;
 const url = new URL(url_string);
 const id = url.searchParams.get('id');
 
-// AUTH INFO
-const auth = JSON.parse(localStorage.getItem('auth'))
+class Group{
 
-class Validate{
     url_id(){
         $.ajax({
             type: 'POST',
-            url: '/server/chat/group.php',
+            url: app.server("chat/group/validate"),
             data: {
                 groupIdIsset: true,
                 id: id,
@@ -18,25 +27,21 @@ class Validate{
             success: function(res){
                 const result = JSON.parse(res);
                 if(result.status == false){
-                    window.location.href = "/chat/group.php";
+                    window.location.href = "/chat/group";
                 }
             }
         });       
     }
-}
-
-class Group{
 
     list(){
         $.ajax({
             type: 'POST',
-            url: '/server/chat/group.php',
+            url: app.server("chat/group/list"),
             data: {
                 retrieveGroupList: true,
             },
             success: function(response){
                 const result = JSON.parse(response);
-                console.log(result);
                 let groupList = '';
                 result.forEach( data =>{
                     groupList += `
@@ -57,7 +62,7 @@ class Group{
             const messageText = document.querySelector('#inputMessageText'); 
             $.ajax({
                 type: 'POST',
-                url: '/server/chat/group.php',
+                url: app.server("chat/group/send/message"),
                 data: {
                     requestSendGroupMessage: true,
                     messageText: messageText.value,
@@ -74,7 +79,7 @@ class Group{
         function retrieveChatBox(params) {
             $.ajax({
                 type: 'POST',
-                url: '/server/chat/group.php',
+                url: app.server("chat/group/retrieve/message"),
                 data: {
                     retrieveGroupMessage: true,
                     id: id,
@@ -113,7 +118,7 @@ class Group{
         // check if user is leader or member
         $.ajax({
             type: 'POST',
-            url: '/server/chat/group.php',
+            url: app.server("chat/group/user/status"),
             data: {
                 userStatus: true,
                 id: id,
@@ -142,7 +147,7 @@ class Group{
                 $('.deleteGroup').on('click',function(){
                     $.ajax({
                         type: 'POST',
-                        url: '/server/chat/group.php',
+                        url: app.server("chat/group/delete"),
                         data: {
                             requestDeleteGroup: true,
                             id: id
@@ -150,7 +155,7 @@ class Group{
                         success: function(response){
                             const result = JSON.parse(response);
                             if(result.status == 'success'){
-                                window.location.href = '/chat/group.php';
+                                window.location.href = '/chat/group';
                             }
                         }
                     });
@@ -159,14 +164,14 @@ class Group{
                 $('.leaveGroup').on('click',function(){
                     $.ajax({
                         type: 'POST',
-                        url: '/server/chat/group.php',
+                        url: app.server("chat/group/leave"),
                         data: {
                             requestLeaveGroup: true,
                             id: id
                         },
                         success: function(response){
                             if(response == 'success'){
-                                window.location.href = '/chat/group.php';
+                                window.location.href = '/chat/group';
                             }
                         }
                     });
@@ -176,24 +181,25 @@ class Group{
     }
 }
 
-// classes
-const validate = new Validate;
-const group = new Group;
+const run = () => {
+    // classes
+    const group = new Group;
 
-// variables
-const Group_Message = $('.Group_Message');
-const Group_List = $('.Group_List');
+    // variables
+    const Group_Message = $('.Group_Message');
+    const Group_List = $('.Group_List');
 
-//check if id is not set
-if(id == null || id == ''){
-    group.list();
-    Group_Message.remove();
-}else{
-    validate.url_id();
+    //check if id is not set
+    if(id == null || id == ''){
+        group.list();
+        Group_Message.remove();
+    }else{
+        group.url_id();
 
-    Group_List.remove();
-    
-    group.send_message();
-    group.refresh_message();
-    group.check_user_status();
+        Group_List.remove();
+        
+        group.send_message();
+        group.refresh_message();
+        group.check_user_status();
+    }
 }

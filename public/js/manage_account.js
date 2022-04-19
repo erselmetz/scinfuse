@@ -1,3 +1,13 @@
+import { app, auth } from "./app.js";
+
+export const manage_account_area = () => {
+    auth.validate();
+    app.navbar();
+    app.view('manage_account',() => {
+        run();
+    });
+}
+
 class ManageAccount{
     constructor(){
         // input:button
@@ -127,14 +137,9 @@ class Email{
 // ==================== change password ====================
 class ChangePassword{
     constructor(){
-        this.auth = JSON.parse(localStorage.getItem('auth'));
-        this.parameter_u = this.auth.username;
-        this.parameter_p = this.auth.password;
         this.form();
     }
     form(){
-        const parameter_u = this.parameter_u;
-        const parameter_p = this.parameter_p;
         $('form[name=change_password]').submit(function(e){
             e.preventDefault();
             const old_password = $('input[name=old_password]');
@@ -149,7 +154,7 @@ class ChangePassword{
         
             $.ajax({
                 type: 'POST',
-                url: '/server/manage_account.php',
+                url: app.server("change/password"),
                 data: {
                     submit_change_password: true,
                     old_password: old_password.val(),
@@ -202,38 +207,39 @@ class ChangePassword{
 }
 
 // ==========================================================================================================
-
 const manage_account = new ManageAccount;
 const profile = new UpdateProfile;
 const email = new Email;
 const change_password = new ChangePassword;
 
-// ==================== input:button ====================
-const iBtnProfile = $('input[name=btn_s_profile]');
-const iBtnEmail = $('input[name=btn_s_email]');
-const iBtnPassword = $('input[name=btn_s_password]');
+const run = () => {
+    // ==================== input:button ====================
+    const iBtnProfile = $('input[name=btn_s_profile]');
+    const iBtnEmail = $('input[name=btn_s_email]');
+    const iBtnPassword = $('input[name=btn_s_password]');
 
-// ==================== form button ====================
-const updateProfileForm = $('#update_profile_form');
-const new_email_form = $('form[name=new_email]');
+    // ==================== form button ====================
+    const updateProfileForm = $('#update_profile_form');
+    const new_email_form = $('form[name=new_email]');
 
-// addEventListener
-iBtnProfile.click( () => {
-    manage_account.click_profile();
-});
-iBtnEmail.click( () => {
-    manage_account.click_email();
-});
-iBtnPassword.click( () => {
-    manage_account.click_password();
-});
+    // addEventListener
+    iBtnProfile.click( () => {
+        manage_account.click_profile();
+    });
+    iBtnEmail.click( () => {
+        manage_account.click_email();
+    });
+    iBtnPassword.click( () => {
+        manage_account.click_password();
+    });
 
-// ==================== forms submit ====================
-updateProfileForm.submit( e => {
-    e.preventDefault();
-    profile.update();
-});
-new_email_form.submit( e => {
-    e.preventDefault();
-    email.new_email();
-});
+    // ==================== forms submit ====================
+    updateProfileForm.submit( e => {
+        e.preventDefault();
+        profile.update();
+    });
+    new_email_form.submit( e => {
+        e.preventDefault();
+        email.new_email();
+    });
+}

@@ -3,7 +3,7 @@ class App{
         return '/server/'+params;
     }
     view(params,callback){
-        $('.main').load('/public/views/'+params+'.html',() => {
+        $('main[id=main]').load('/public/views/'+params+'.html',() => {
             callback();
         });
     }
@@ -35,7 +35,20 @@ class App{
         </div>`);
     }
     navbar(){
-        $('body').load('/public/views/layout/navbar.html .container');
+        $('nav[id=nav]').load('/public/views/layout/navbar.html',()=>{
+            const name = $('navbar-fullname');
+            $.ajax({
+                type: "POST",
+                url: app.server("user/info"),
+                data: {
+                    fullname: true,
+                },
+                success: function (response) {
+                    const res = JSON.parse(response);
+                    name.text(res.fullname);
+                }
+            });
+        });
     }
     title(params){
         const title = $('title');
@@ -44,9 +57,7 @@ class App{
 }
 
 class Auth{
-    constructor(){
 
-    }
     validate(){
         $.ajax({
             type: "POST",
@@ -68,6 +79,7 @@ class Auth{
             }
         });
     }
+
     logout(){
         $.ajax({
             type: "POST",

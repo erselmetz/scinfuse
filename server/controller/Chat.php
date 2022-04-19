@@ -8,7 +8,8 @@ class Chat{
         // get user 
         if(isset($_POST['requestToGetUser'])){
             if($_POST['requestToGetUser'] == true){
-                $id = $auth->id();
+                $db = DB::connection();
+                $id = Auth::id();
                 $limit = htmlentities($_POST['limit']);
                 $data = [];
                 $result = $db->query("SELECT * FROM users WHERE id != '$id' LIMIT $limit");
@@ -102,7 +103,7 @@ class Chat{
         }
     }
 
-    public static function individual_request_to_check_user_id(){
+    public static function individual_validate_user(){
         //check the if did exist if not then redirect to individual page
         if(isset($_POST['requestToCheckUserId'])){
             if($_POST['requestToCheckUserId'] == true){
@@ -179,7 +180,7 @@ class Chat{
         // retrieve group list
         if(isset($_POST['retrieveGroupList'])){
             $data = [];
-            $id = $auth->id();
+            $id = Auth::id();
 
             // hosting group
             $sql = "SELECT * FROM chat_group WHERE leader = '$id' ";
@@ -226,8 +227,8 @@ class Chat{
         }
     }
 
-    public static function group_id_is_set(){
-        // check id if exist
+    public static function group_id_exists(){
+        // check group id if exist
         if(isset($_POST['groupIdIsset'])){
             $data = [
                 'status'=>true
