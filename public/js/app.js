@@ -3,23 +3,28 @@ class App{
         return '/server/'+params;
     }
     view(params,callback){
+        $('main').html(`
+        <div class="loader-ring">Loading...
+            <span></span>
+        </div>
+        `);
         $('main[id=main]').load('/public/views/'+params+'.html',() => {
             callback();
         });
     }
     error(params){
-        if(params == 404){
+        if(params == '404'){
             const a = /*html */`
-            <div class="d-flex align-items-center justify-content-center vh-100 vw-100">
+            <div class="d-flex align-items-center justify-content-center vh-100">
                 <div class="card col-10 col-md-5"style="background-color: rgba(0,0,0,0.5);">
-                    <div class="card-body">
+                    <div class="p-4">
                         <h4 class="text-white fst-italic fw-bold">Error: 404</h4>
                         <p class="card-text text-white fst-italic">Not Found</p>
                     </div>
                 </div>
             </div>
             `;
-            $('.main').html(a);
+            $('main').html(a);
         }
     }
     chats_button(){
@@ -57,7 +62,6 @@ class App{
 }
 
 class Auth{
-
     validate(){
         $.ajax({
             type: "POST",
@@ -66,7 +70,7 @@ class Auth{
                 check_auth: true,
             },
             beforeSend:function(){
-                $('.main').hide();
+                    $('.main').hide();
             },
             success: function (response) {
                 const res = JSON.parse(response);
@@ -111,7 +115,7 @@ class Route{
         if ( this.routes.hasOwnProperty(this.url.pathname) ) {
             this.routes[this.url.pathname]();
         }else{
-            app.error(404);
+            app.error('404');
         }
     }
 }

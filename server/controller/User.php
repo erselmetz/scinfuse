@@ -5,7 +5,9 @@ class User{
         // profile
         if( isset($_POST['update_profile']) ){
             if( $_POST['update_profile'] == true ){
-                $user_id = $auth->id();
+                // 
+                $db = DB::connection();
+                $user_id = Auth::id();
 
                 $username = htmlentities($_POST['username']);
                 $number = htmlentities($_POST['number']);
@@ -15,13 +17,15 @@ class User{
                 $data['username'] = $username;
                 $data['number'] = $number;
 
-                $sql = "UPDATE users SET username='$username',phone_number='$number' WHERE id='$user_id'";
-                if( $db->query($sql) == TRUE ){
-                    $data['status'] = true;
+                if(trim($username) != null){
+                    $sql = "UPDATE users SET username='$username',phone_number='$number' WHERE id='$user_id'";
+                    if( $db->query($sql) == TRUE ){
+                        $data['status'] = true;
 
-                    // set value
-                    $auth->set_username($username);
-                    $auth->set_phone_number($number);
+                        // set value
+                        Auth::set_username($username);
+                        Auth::set_phone_number($number);
+                    }
                 }
 
                 echo json_encode($data);
@@ -33,10 +37,11 @@ class User{
         // password
         if(isset($_POST['submit_change_password'])){
             if($_POST['submit_change_password'] == true){
+                $db = DB::connection();
 
                 // $u = htmlentities($_POST['u']);
-                $u = $auth->email();
-                $p = $auth->password();
+                $u = Auth::email();
+                $p = Auth::password();
                 $old = htmlentities($_POST['old_password']);
                 $new = htmlentities($_POST['new_password']);
                 $repeat_new = htmlentities($_POST['repeat_new_password']);
@@ -57,7 +62,6 @@ class User{
                         $sql = "UPDATE users SET password='$password_hash' WHERE email='$u' or username='$u' LIMIT 1";
                         if($db->query($sql) == true ){
                             $data['status'] = true;
-                            session_start();
                             session_destroy();
                         }
                     }

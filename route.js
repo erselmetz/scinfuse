@@ -1,4 +1,4 @@
-import { app, route } from "./public/js/app.js";
+import { route } from "./public/js/app.js";
 import { forgot_password_area } from "./public/js/auth/forgot_password.js";
 import { login_area } from "./public/js/auth/login.js";
 import { register_area } from "./public/js/auth/register.js";

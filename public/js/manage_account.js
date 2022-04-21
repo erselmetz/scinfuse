@@ -70,28 +70,47 @@ class ManageAccount{
 // ==================== Update Profile Form ====================
 class UpdateProfile{
     update(){
-        const username = $('input[name=profile_username]');
-        const number = $('input[name=profile_phone_number]');
-        
-        $.ajax({
-            type: "POST",
-            url: "/server/manage_account.php",
-            data: {
-                update_profile: true,
-                username: username.val(),
-                number: number.val()
-            },
-            beforeSend: function(){
-                $('.loader').removeClass('d-none');
-                $('.check-fill-up').addClass('d-none');
-            },
-            success: response => {
-                $('.loader').addClass('d-none');
-                const res = JSON.parse(response);
-
-                if(res.status == true){
-                    $('.check-fill-up').removeClass('d-none');
+        $('form[id=update_profile_form]').validate({
+            errorClass: 'text-danger',
+            validClass: 'text-success',
+            rules: {
+                profile_username: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 50
+                },
+                profile_phone_number: {
+                    required: true,
+                    number: true
                 }
+            },
+            submitHandler: (form) => {
+                const username = form.username.value;
+                const number = form.username.value;
+                
+                $.ajax({
+                    type: "POST",
+                    url: app.server("update/profile"),
+                    data: {
+                        update_profile: true,
+                        username: username.value,
+                        number: number.value
+                    },
+                    beforeSend: function(){
+                        $('.loader').removeClass('d-none');
+                        $('.check-fill-up').addClass('d-none');
+                    },
+                    success: response => {
+                        $('.loader').addClass('d-none');
+                        const res = JSON.parse(response);
+
+                        if(res.status == true){
+                            $('.check-fill-up').removeClass('d-none');
+                        }else{
+                            $('div[tag=content-profile-failed-to-update]').removeClass('d-none');
+                        }
+                    }
+                });
             }
         });
     }
@@ -100,146 +119,165 @@ class UpdateProfile{
 // ==================== new Email ====================
 class Email{
     new_email(){
-        const email = $('input[name=email]');
-        const new_email = $('input[name=new_email]');
-
-        if( email.val() != new_email.val() ){
-            update();
-        }
-
-        function update(){
-            $.ajax({
-                type: "POST",
-                url: "/server/manage_account.php",
-                data: {
-                    change_email: true,
-                    new_email: new_email.val(),
-                },
-                beforeSend: () => {
-                    $('.check-fill-ne').addClass('d-none');
-                    $('.loader').removeClass('d-none');
-                },
-                success: response => {
-                    $('.loader').addClass('d-none');
-                    const res = JSON.parse(response);
-
-                    if(res.email_changed == true){
-                        $('.check-fill-ne').removeClass('d-none');
-                        email.val(new_email.val());
-                        new_email.val(null);
-                    }
+        $('form[name=new_email]').validate({
+            errorClass: 'text-danger',
+            validClass: 'text-success',
+            rules:{
+                new_email:{
+                    required:true,
+                    email: true
                 }
-            });
-        }
+            },
+            submitHandler: (form) => {
+                const email = form.email.value;
+                const new_email = form.new_email.value;
+
+                if( email.value != new_email.value ){
+                    update();
+                }
+
+                function update(){
+                    $.ajax({
+                        type: "POST",
+                        url: app.server("change/email"),
+                        data: {
+                            change_email: true,
+                            new_email: new_email.value,
+                        },
+                        beforeSend: () => {
+                            $('.check-fill-ne').addClass('d-none');
+                            $('.loader').removeClass('d-none');
+                        },
+                        success: response => {
+                            $('.loader').addClass('d-none');
+                            const res = JSON.parse(response);
+
+                            if(res.email_changed == true){
+                                $('.check-fill-ne').removeClass('d-none');
+                                email.value = new_email.value;
+                                new_email.value = null ;
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 }
 
 // ==================== change password ====================
 class ChangePassword{
-    constructor(){
-        this.form();
-    }
     form(){
-        $('form[name=change_password]').submit(function(e){
-            e.preventDefault();
-            const old_password = $('input[name=old_password]');
-            const new_password = $('input[name=new_password]');
-            const repeat_new_password = $('input[name=repeat_new_password]');
-        
-            const match_error = $('.match_error');
-            const old_password_error = $('.old_password_error');
-            const alert_success = $('.alert_success');
-        
-            const loader = $('.loader');
-        
-            $.ajax({
-                type: 'POST',
-                url: app.server("change/password"),
-                data: {
-                    submit_change_password: true,
-                    old_password: old_password.val(),
-                    new_password: new_password.val(),
-                    repeat_new_password: repeat_new_password.val()
+        $('form[name=change_password]').validate({
+            rules: {
+                old_password: {
+                    required: true
                 },
-                beforeSend: function(){
-                    loader.removeClass('d-none');
+                new_password: {
+                    required: true,
+                    minlength: 8
                 },
-                success: function(res){
-                    const result = JSON.parse(res);
-                    console.log(result);
-        
-                    loader.addClass('d-none');
-        
-                    match_error.addClass('d-none');  
-                    new_password.removeClass('border border-danger');
-                    repeat_new_password.removeClass('border border-danger');
-                    
-                    if(result.old_password == false){
-                        old_password.addClass('border border-danger');
-                        old_password_error.removeClass('d-none');
-                    }else{
-                        old_password.removeClass('border border-danger');
-                        old_password_error.addClass('d-none');   
-                    }
-        
-                    if(result.new_password != result.repeat_new_password){
-                        match_error.removeClass('d-none');
-                        new_password.addClass('border border-danger');
-                        repeat_new_password.addClass('border border-danger');
-                    }else{
-                        match_error.addClass('d-none');
+                repeat_new_password: {
+                    required: true,
+                    equalTo: '#new_password',
+                }
+            },
+            errorClass: 'text-danger',
+            validClass: 'text-success',
+            submitHandler: (form) => {
+                const old_password = $('input[name=old_password]');
+                const new_password = $('input[name=new_password]');
+                const repeat_new_password = $('input[name=repeat_new_password]');
+                const match_error = $('.match_error');
+                const old_password_error = $('.old_password_error');
+                const alert_success = $('.alert_success');
+                const loader = $('.loader');
+            
+                $.ajax({
+                    type: 'POST',
+                    url: app.server("change/password"),
+                    data: {
+                        submit_change_password: true,
+                        old_password: form.old_password.value,
+                        new_password: form.new_password.value,
+                        repeat_new_password: form.repeat_new_password.value
+                    },
+                    beforeSend: function(){
+                        loader.removeClass('d-none');
+                    },
+                    success: function(res){
+                        const result = JSON.parse(res);
+                        console.log(result);
+            
+                        loader.addClass('d-none');
+            
+                        match_error.addClass('d-none');  
                         new_password.removeClass('border border-danger');
                         repeat_new_password.removeClass('border border-danger');
-                    }
-        
-                    if(result.status == true){
-                        old_password.val(null);
-                        new_password.val(null);
-                        repeat_new_password.val(null);
-                        alert_success.removeClass('d-none');
-                        window.location.href = '/';
-                    }
-                }
-            });
                         
+                        if(result.old_password == false){
+                            old_password.addClass('border border-danger');
+                            old_password_error.removeClass('d-none');
+                            old_password.val(null);
+                        }else{
+                            old_password.removeClass('border border-danger');
+                            old_password_error.addClass('d-none');   
+                        }
+            
+                        if(result.new_password != result.repeat_new_password){
+                            match_error.removeClass('d-none');
+                            new_password.addClass('border border-danger');
+                            repeat_new_password.addClass('border border-danger');
+                        }else{
+                            match_error.addClass('d-none');
+                            new_password.removeClass('border border-danger');
+                            repeat_new_password.removeClass('border border-danger');
+                        }
+            
+                        if(result.status == true){
+                            old_password.val(null);
+                            new_password.val(null);
+                            repeat_new_password.val(null);
+                            alert_success.removeClass('d-none');
+                            window.location.href = '/';
+                        }
+                    }
+                });
+            }
         });
     }
 }
 
-// ==========================================================================================================
-const manage_account = new ManageAccount;
-const profile = new UpdateProfile;
-const email = new Email;
-const change_password = new ChangePassword;
 
 const run = () => {
+    // ==========================================================================================================
+    const manage_account = new ManageAccount;
+    const profile = new UpdateProfile;
+    const email = new Email;
+    const change_password = new ChangePassword;
+    
+    // form submit
+    email.new_email();
+    profile.update();
+    change_password.form(); 
+
     // ==================== input:button ====================
     const iBtnProfile = $('input[name=btn_s_profile]');
     const iBtnEmail = $('input[name=btn_s_email]');
     const iBtnPassword = $('input[name=btn_s_password]');
 
-    // ==================== form button ====================
-    const updateProfileForm = $('#update_profile_form');
-    const new_email_form = $('form[name=new_email]');
-
     // addEventListener
     iBtnProfile.click( () => {
         manage_account.click_profile();
+        $('form[id=update_profile_form]').submit()
     });
     iBtnEmail.click( () => {
         manage_account.click_email();
+        $('form[name=new_email]').submit()
     });
     iBtnPassword.click( () => {
         manage_account.click_password();
+        $('form[name=change_password]').submit();
     });
-
-    // ==================== forms submit ====================
-    updateProfileForm.submit( e => {
-        e.preventDefault();
-        profile.update();
-    });
-    new_email_form.submit( e => {
-        e.preventDefault();
-        email.new_email();
-    });
+    
 }
