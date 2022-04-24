@@ -1,3 +1,4 @@
 .vscode
 .git
-server/classes/DB.php
+server/vendor
+server/db.php
