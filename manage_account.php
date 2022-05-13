@@ -40,12 +40,26 @@ require_once 'server/global_function.php';
                         <form id="update_profile_form" method="post">
                                 <div class="card-header fs-4 fw-bold">Profile</div>
                                 <div class="card-body">
+                                    <!-- first anme -->
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" name="profile_firstname" value="<?php echo $auth->first_name() ?>"
+                                            aria-describedby="emailHelpId" autocomplete="off" required>
+                                    </div>
+                                    <!-- last name -->
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" name="profile_lastname" value="<?php echo $auth->last_name() ?>"
+                                            aria-describedby="emailHelpId" autocomplete="off" required>
+                                    </div>
+                                    
                                     <!-- username -->
                                     <div class="mb-3">
                                         <label for="" class="form-label">Username</label>
                                         <input type="text" class="form-control" name="profile_username" value="<?php echo $auth->username() ?>"
                                             aria-describedby="emailHelpId" autocomplete="off" required>
                                     </div>
+
                                     <!-- phone number -->
                                     <div class="mb-3">
                                         <label for="" class="form-label">Phone number</label>

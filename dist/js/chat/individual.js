@@ -25,7 +25,7 @@ class UserAvailable{
                     $('.card-body').html('<h1 class="text-white">no conversation yet!!!</h1>');
                     document.querySelector('.card-body').innerHTML = '<h1 class="text-white">no conversation yet!!!</h1>';
                 }else{
-                    result.forEach(res => {
+                    result.user.forEach(res => {
                         user += /*html*/ `
                         <a class="d-flex alignt-items justify-content-start rounded-3 p-2 my-1 btn-names text-decoration-none" 
                         href='individual.php?id=${res.id}' style="text-transform: capitalize">
@@ -87,26 +87,33 @@ class MessageArea{
                 },
                 success: function(res) {
                     const result = JSON.parse(res);
+                    console.log(res);
+                    const card_body_text_area = $('#card-body-textarea');
                     let text = '';
 
-                    result.forEach(res => {
-                        if (res.from == auth.id) {
-                            text += /*html */`
-                            <div class='d-flex justify-content-end'>
-                                <div class='p-1 bg-primary text-white rounded mb-1'>
-                                    ${res.message}    
-                                </div>
-                            </div>`;
-                        } else {
-                            text += /*html */`
-                            <div class='d-flex justify-content-start'>
-                                <div class='p-1 bg-primary text-white rounded mb-1'>
-                                    ${res.message}
-                                </div>
-                            </div>`;
-                        }
-                    });
-                    $('#card-body-textarea').html(text);
+                    if(result.chatAvailable == true){
+                        result.chatBox.forEach(res => {
+                            if (res.from == auth.id) {
+                                text += /*html */`
+                                <div class='d-flex justify-content-end'>
+                                    <div class='p-1 bg-primary text-white rounded mb-1'>
+                                        ${res.message}    
+                                    </div>
+                                </div>`;
+                            } else {
+                                text += /*html */`
+                                <div class='d-flex justify-content-start'>
+                                    <div class='p-1 bg-primary text-white rounded mb-1'>
+                                        ${res.message}
+                                    </div>
+                                </div>`;
+                            }
+                        });
+                        card_body_text_area.html(text);
+                    }else{
+                        card_body_text_area.html(`<h1 class="text-white">no conversation yet!!!</h1>`);
+                    
+                    }
                 }
             });
         }

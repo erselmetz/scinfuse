@@ -30,7 +30,7 @@ require_once '../server/global_function.php';
                     <div class="row">
                         <div class="col-12 col-md-10">
                             <div class="form-floating">
-                                <input id="inputMessageText" class="form-control" placeholder="Leave a comment here" id="floatingTextarea">
+                                <input id="inputMessageText" class="form-control" placeholder="Leave a comment here">
                                 <label for="floatingTextarea">Send message</label>
                             </div>
                         </div>

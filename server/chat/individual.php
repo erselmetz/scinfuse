@@ -11,6 +11,7 @@ if(isset($_POST['requestToGetUser'])){
         $limit = htmlentities($_POST['limit']);
         $data = [];
         $data['user_list'] = false;
+        $data['user'] = [];
         $result = $db->query("SELECT * FROM users WHERE id != '$id' LIMIT $limit");
 
         if( $result->num_rows > 0 ){
@@ -24,7 +25,7 @@ if(isset($_POST['requestToGetUser'])){
                         if($result->num_rows > 0){
                             $data['user_list'] = true;
                             while( $row = $result->fetch_assoc() ){
-                                array_push($data,[
+                                array_push($data['user'],[
                                     "id"=>$row['id'],
                                     "name"=>$row['fname'].' '.$row['lname']
                                 ]);
@@ -69,18 +70,24 @@ if(isset($_POST['retrieveChatBoxIndividual'])){
         $to_id = htmlentities($_POST['id']);
         $user_id = $auth->id();
 
+        $data = [];
+        $data['chatAvailable'] = false;
+        $data['chatBox'] = [];
+
+
         $sql = "SELECT * FROM chat_individual WHERE from_id='$user_id' AND to_id='$to_id' OR to_id='$user_id' AND from_id='$to_id'";
         $result = $db->query($sql);
+
         if($result->num_rows > 0){
-            $data = [];
+            $data['chatAvailable'] = true;
             while($row = $result->fetch_assoc()){
-                array_push($data,[
+                array_push($data['chatBox'],[
                     "from"=>$row['from_id'],
                     "message"=>$row['message']
                 ]);
             }
-            echo json_encode($data);
         }
+        echo json_encode($data);
     }
 }
 

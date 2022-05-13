@@ -48,6 +48,19 @@ function authenticated(){
     }
 }
 
+function divide_words($params){
+    $subject = '';
+    switch($params){
+        case "earthscience":
+            $subject = "Earth Science";
+            break;
+        default:
+            $subject = ucwords($params);
+            break;
+    }
+    
+    return $subject;
+}
 
 // ==========================================================
  
@@ -102,7 +115,7 @@ class Auth{
     }
     
     public function set_fullname($params){
-        $_SESSION['auth_fullname'];
+        $_SESSION['auth_fullname'] = $params;
     }
     
     public function set_username($params){

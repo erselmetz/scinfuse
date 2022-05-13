@@ -10,6 +10,8 @@ if( isset($_POST['update_profile']) ){
     if( $_POST['update_profile'] == true ){
         $user_id = $auth->id();
 
+        $firstname = htmlentities($_POST['firstname']);
+        $lastname = htmlentities($_POST['lastname']);
         $username = htmlentities($_POST['username']);
         $number = htmlentities($_POST['number']);
         
@@ -18,13 +20,22 @@ if( isset($_POST['update_profile']) ){
         $data['username'] = $username;
         $data['number'] = $number;
 
-        $sql = "UPDATE users SET username='$username',phone_number='$number' WHERE id='$user_id'";
-        if( $db->query($sql) == TRUE ){
-            $data['status'] = true;
+        $proceed = false;
 
-            // set value
-            $auth->set_username($username);
-            $auth->set_phone_number($number);
+        if($firstname != null && $lastname != null && $username != null){$proceed=true;}
+
+        if($proceed == true){
+            $sql = "UPDATE users SET username='$username',phone_number='$number', fname='$firstname',lname='$lastname' WHERE id='$user_id'";
+            if( $db->query($sql) == TRUE ){
+                $data['status'] = true;
+
+                // set value
+                $auth->set_first_name($firstname);
+                $auth->set_last_name($lastname);
+                $auth->set_username($username);
+                $auth->set_fullname($firstname.' '.$lastname);
+                $auth->set_phone_number($number);
+            }
         }
 
         echo json_encode($data);

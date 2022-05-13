@@ -60,16 +60,20 @@ class ManageAccount{
 // ==================== Update Profile Form ====================
 class UpdateProfile{
     update(){
-        const username = $('input[name=profile_username]');
-        const number = $('input[name=profile_phone_number]');
+        const firstname = document.querySelector('input[name=profile_firstname]');
+        const lastname = document.querySelector('input[name=profile_lastname]');
+        const username = document.querySelector('input[name=profile_username]');
+        const number = document.querySelector('input[name=profile_phone_number]');
         
         $.ajax({
             type: "POST",
             url: "/server/manage_account.php",
             data: {
                 update_profile: true,
-                username: username.val(),
-                number: number.val()
+                firstname: firstname.value,
+                lastname: lastname.value,
+                username: username.value,
+                number: number.value
             },
             beforeSend: function(){
                 $('.loader').removeClass('d-none');

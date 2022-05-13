@@ -1,6 +1,7 @@
 @import url('/dist/bootstrap/css/bootstrap.min.css');
 @import url('./loader/ring.css');
 @import url('./loader/wave.css');
+@import url('./w3.css');
 
 /* Chat */
 

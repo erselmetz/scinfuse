@@ -60,7 +60,7 @@ require_once 'server/global_function.php';
 
     <div class="welcome-text">
         <div>
-            <h1>Welcome to SCinFuse, <a style="color: #00ffff; text-transform: capitalize; text-decoration: none"><?php echo $auth->fullname()?>!</a></h1>
+            <h1>Welcome to SCinFuse, <a style="color: #00ffff; text-transform: capitalize; text-decoration: none"><?php echo $auth->first_name()?>!</a></h1>
         </div>
         <p>The most exciting learning management system that fuse your minds into more exciting lessons</p>
 
@@ -74,25 +74,25 @@ require_once 'server/global_function.php';
             <div class="home-column1-contents">
                 <div class="lectures">
                     <img src="/image/Earth logo.png" />
-                    <a class="button button5" href="/Lectures/Earth Science/Earth Science Lectures.php">
+                    <a class="button button5" href="lecture.php?subject=earthscience">
                         <b>Earth Science</b>
                     </a>
                 </div>
                 <div class="lectures">
                     <img src="/image/Biology logo.png" />
-                    <a class="button button6" href="/Lectures/Earth Science/Earth Science Lectures.php">
+                    <a class="button button6" href="lecture.php?subject=biology">
                         <b>Biology</b>
                     </a>
                 </div>
                 <div class="lectures">
                     <img src="/image/Chemistry logo.png" />
-                    <a class="button button7" href="/Lectures/Earth Science/Earth Science Lectures.php">
+                    <a class="button button7" href="lecture.php?subject=chemistry">
                         <b>Chemistry</b>
                     </a>
                 </div>
                 <div class="lectures">
                     <img src="/image/Physics logo.png" />
-                    <a class="button button8" href="/Lectures/Earth Science/Earth Science Lectures.php">
+                    <a class="button button8" href="lecture.php?subject=Physics">
                         <b>Physics</b>
                     </a>
                 </div>
