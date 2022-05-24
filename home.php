@@ -17,7 +17,12 @@ require_once 'server/global_function.php';
 
 </head>
 
-<body>
+<body onload="myFunction()">
+
+<img src="\image\loader.png" width="120" id="loader"/>
+
+<div style="display:none;" id="scinfuse">
+
     <?php require_once 'layout/navbar.php'; ?>
     
     <div class="jumbotron jumbotron-fluid">
@@ -60,7 +65,10 @@ require_once 'server/global_function.php';
 
     <div class="welcome-text">
         <div>
-            <h1>Welcome to SCinFuse, <a style="color: #00ffff; text-transform: capitalize; text-decoration: none"><?php echo $auth->first_name()?>!</a></h1>
+			<h1>
+				<script src="./dist/js/Greetings.js"></script>
+				<a style="color: #00ffff; text-transform: capitalize; text-decoration: none"><?php echo $auth->first_name()?>!</a>
+			</h1>
         </div>
         <p>The most exciting learning management system that fuse your minds into more exciting lessons</p>
 
@@ -112,12 +120,15 @@ require_once 'server/global_function.php';
     </button>
     <script src="./dist/js/Voice Command.js"></script>
 
-    <?php require_once './layout/chat_button.php'; ?>
-
+    <?php require_once 'layout/chat_button.php'; ?>
     <?php require_once 'layout/footer.php'; ?>
-
     <?php require_once 'layout/script.php'; ?>
+
     <script src="./dist/js/Slideshow.js"></script>
+
+</div>
+
+    <script src="./dist/js/loader.js"></script>
 
 </body>
 

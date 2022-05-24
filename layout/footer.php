@@ -6,6 +6,11 @@
         <p>&copy; <script>document.write(new Date().getFullYear())</script> SCinFuse | Lagro High School. All rights reserved.</p>
         <p>Address: Misa de Gallo St., cor. Ascension Ave., Brgy. Greater Lagro, Quezon City</p>
         <p>Contact: 939-9026</p>
+		<div style="display: flex">
+			<p>PST:&nbsp</p>
+			<p id="clock"></p>
+		</div>
+		<script src="./dist/js/Philippine Standard Time.js"></script>
     </div>
 
     <div class="footer-right">
@@ -68,4 +73,7 @@
             </div>
         </div>
     </div>
+	<div style="left: 0; bottom: 0; margin-top: 20px">
+		<span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal sealID=MszYHvZdZGA9NjMImW8W5688dQjmoFOGojZH8bkjMl0F3IfyS07zUn2N40oF"></script></span>
+	</div>
 </footer>

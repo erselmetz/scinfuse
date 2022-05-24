@@ -34,16 +34,8 @@ require_once '../../../server/global_function.php';
 		</script>
 	</div>
 
-	<div class="chat">
-        <img src="../../../image/Chat icon.png" />
-        <div class="chat-content">
-            <a href="../../../chat/individual.php">Individual</a>
-            <a href="../../../chat/group.php">Group</a>
-            <a href="../../../chat/global.php">Global</a>
-        </div>
-    </div>
-
-	<script src="../../../dist/js/bootstrap.js"></script>
+	<?php require_once '../../../layout/chat_button.php'; ?>
+    <?php require_once '../../../layout/script.php' ?>
 
 </body>
 

@@ -111,6 +111,8 @@ if(isset($_POST['requestingToRegister'])){
                         <div class="d-flex align-items-center justify-content-start gap-4">
                             <input type="submit" value="Register" class="button btn-register">
                             <a class="login" href="./login.php">Login</a>
+							<span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?
+								sealID=MszYHvZdZGA9NjMImW8W5688dQjmoFOGojZH8bkjMl0F3IfyS07zUn2N40oF"></script></span>
                         </div>
                     </div>
                 </div>

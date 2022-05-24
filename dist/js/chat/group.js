@@ -34,12 +34,6 @@ class Group{
             url: '/server/chat/group.php',
             data: {
                 retrieveGroupList: true,
-            },
-            beforeSend: () => {
-                $('.card-body').html(`
-                <div class="loader-ring">Loading...
-                    <span class="ring"></span>
-                </div>`);
             },  
             success: function(response){
                 const result = JSON.parse(response);
@@ -47,7 +41,7 @@ class Group{
                 let groupList = '';
 
                 if(result.available == false){
-                    $('.card-body').html('<h1 class="text-white">no conversation yet!!!</h1>');
+                    $('.card-body').html('<div class="d-flex align-items-center justify-content-center w-100 h-100"><p class="text-muted">No groups yet</p></div>');
                 }else{
                     result.group_list.forEach( data =>{
                         groupList += `
@@ -106,8 +100,8 @@ class Group{
                         }else{
                             html += `
                             <div class='d-flex justify-content-start'>
-                                <div class='p-1 bg-primary text-white rounded mb-1'>
-                                    `+result.member_name+`:`+result.message+`   
+                                <div class='p-1 text-black rounded mb-1' style="background-color: #F0FFFF">
+                                    <b>`+result.member_name+`</b>:&nbsp`+result.message+` 
                                 </div>
                             </div>`;
                         }

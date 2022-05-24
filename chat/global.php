@@ -20,11 +20,7 @@ require_once '../server/global_function.php';
 
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card col-12 col-md-11 h-75" id="global-chat">
-            <div class="card-body card-body-textarea h-100 overflow-auto">
-                <div class="loader-ring">Loading...
-                    <span class="ring"></span>
-                </div>
-            </div>
+            <div class="card-body card-body-textarea h-100 overflow-auto"></div>
             <div class="card-footer">
                 <form name="sendMessageForm">
                     <div class="row">

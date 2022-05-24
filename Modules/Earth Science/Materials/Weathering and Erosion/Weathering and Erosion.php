@@ -14,7 +14,7 @@ require_once '../../../../server/global_function.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../../../../dist/css/style.css">
-    <link rel="stylesheet" href="/Modules/Materials.css">
+    <link rel="stylesheet" href="../../../../Modules/Materials.css">
 </head>
 
 <body>
@@ -56,18 +56,10 @@ require_once '../../../../server/global_function.php';
     <button class="button button10" id="btn" onclick='recognition.start()'>
         <img src="../../../../image/microphone.png" width="90" height="80"/>Talk to Scientia
     </button>
-    <script src="Voice Command.js"></script>
+    <script src="../../../../Modules/Earth Science/Materials/Weathering and Erosion/Voice Command.js"></script>
 
-    <div class="chat">
-        <img src="../../../../image/Chat icon.png" />
-        <div class="chat-content">
-            <a href="../../../../chat/individual.php">Individual</a>
-            <a href="../../../../chat/group.php">Group</a>
-            <a href="../../../../chat/global.php">Global</a>
-        </div>
-    </div>
-
-    <script src="../../../../dist/js/bootstrap.js"></script>
+    <?php require_once '../../../../layout/chat_button.php'; ?>
+    <?php require_once '../../../../layout/script.php' ?>
 
 </body>
 

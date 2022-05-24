@@ -23,7 +23,7 @@ require_once '../server/global_function.php';
         <div class="card col-12 col-md-11 h-75" id="group-chat">
             <div class="card-header d-flex justify-content-between">
                 <div class="text-white">
-                    <a type="button" class="btn btn-primary" href="group.php">&lt;</a>
+                    <a type="button" href="group.php">&lt;</a>
                     <span id="groupNameHere"></span>
                 </div>
                 <div class="dropdown">
@@ -32,11 +32,7 @@ require_once '../server/global_function.php';
                     <ul class="dropdown-menu" id="moreOptionHeader" aria-labelledby="dropdownMenuButton1"></ul>
                 </div>
             </div>
-            <div class="card-body overflow-auto" id="card-body-textarea">
-                <div class="loader-ring">Loading...
-                    <span class="ring"></span>
-                </div>
-            </div>
+            <div class="card-body overflow-auto" id="card-body-textarea"></div>
             <div class="card-footer">
                 <form name="sendMessageForm">
                     <div class="row">

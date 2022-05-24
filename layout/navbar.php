@@ -11,16 +11,16 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0" id="nav-contents">
-                <a href="/storyboard.php">
-                    <li class="button button1">Storyboard</li>
+                <a href="/Storyboard.php">
+                    <li class="button button1">Stories</li>
                 </a>
-                <a href="/simulation.php">
+                <a href="/Simulations.php">
                     <li class="button button2">Simulations</li>
                 </a>
-                <a href="/lecture.php">
+                <a href="/Lectures.php">
                     <li class="button button3">Lectures</li>
                 </a>
-                <a href="/module.php">
+                <a href="/Modules.php">
                     <li class="button button4">Modules</li>
                 </a>
             </ul>

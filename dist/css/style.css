@@ -1,7 +1,32 @@
 @import url('/dist/bootstrap/css/bootstrap.min.css');
-@import url('./loader/ring.css');
-@import url('./loader/wave.css');
-@import url('./w3.css');
+
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    margin: -75px 0 0 -76px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+
+  @media screen and (max-width: 392px) {
+
+    #loader {
+        left: 53%;
+      }
+
+  }
+
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 /* Chat */
 
@@ -254,16 +279,16 @@ label {
     margin-top: 10px;
 }
 
-.story .button, .lecture .button, .modules .button {
+.story .button, .lecture-modules .button {
     color: white;
 }
 
 .button11 {
-    border: 2px solid #b62e3b;
+    border: 2px solid #785d9a;
 }
 
     .button11:hover {
-        background-color: #b62e3b;
+        background-color: #785d9a;
     }
 
 .button12 {
@@ -828,14 +853,14 @@ section {
 
 /* Lectures/Modules */
 
-.lecture-row, .modules-row {
+.lecture-modules-row {
     display: flex;
     justify-content: center;
     margin-right: 20px;
     margin-bottom: 20px;
 }
 
-.lecture, .modules {
+.lecture-modules {
     position: relative;
     background-color: rgba(0,0,0,0.7);
     margin-left: 20px;
@@ -844,34 +869,34 @@ section {
     color: white;
 }
 
-    .lecture img, .modules img {
+    .lecture-modules img {
         width: 40%;
         padding-top: 20px;
     }
 
-.lecture-text, .modules-text {
+.lecture-modules-text {
     margin-top: 10px;
     margin-bottom: 40px;
     line-height: 80px;
 }
 
-.lecture video {
+.lecture-modules video {
     width: 300px;
 }
 
 @media screen and (max-width: 1000px) {
 
-    .lecture-row, .modules-row {
+    .lecture-modules-row {
         display: flex;
         flex-wrap: wrap;
     }
 
-    .lecture, .modules {
+    .lecture-modules {
         width: 350px;
         margin-bottom: 20px;
     }
 
-        .lecture img, .modules img {
+        .lecture-modules img {
             width: 30%;
         }
 }

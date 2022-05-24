@@ -22,8 +22,8 @@ class UserAvailable{
                 console.log(result);
                 
                 if(result.user_list == false){
-                    $('.card-body').html('<h1 class="text-white">no conversation yet!!!</h1>');
-                    document.querySelector('.card-body').innerHTML = '<h1 class="text-white">no conversation yet!!!</h1>';
+                    $('.card-body').html('<div class="d-flex align-items-center justify-content-center w-100 h-100"><p class="text-muted">Names will appear here</p></div>');
+                    document.querySelector('.card-body').innerHTML = '<div class="d-flex align-items-center justify-content-center w-100 h-100"><p class="text-muted">Names will appear here</p></div>';
                 }else{
                     result.user.forEach(res => {
                         user += /*html*/ `
@@ -103,7 +103,7 @@ class MessageArea{
                             } else {
                                 text += /*html */`
                                 <div class='d-flex justify-content-start'>
-                                    <div class='p-1 bg-primary text-white rounded mb-1'>
+                                    <div class='p-1 text-black rounded mb-1' style="background-color: #F0FFFF">
                                         ${res.message}
                                     </div>
                                 </div>`;
@@ -111,7 +111,7 @@ class MessageArea{
                         });
                         card_body_text_area.html(text);
                     }else{
-                        card_body_text_area.html(`<h1 class="text-white">no conversation yet!!!</h1>`);
+                        card_body_text_area.html(`<div class="d-flex align-items-center justify-content-center w-100 h-100"><p class="text-muted">No conversations yet</p></div>`);
                     
                     }
                 }
@@ -159,7 +159,7 @@ class Search{
                 if(result == ''){
                     card_body.html(/*html */
                     `<div class="d-flex align-items-center justify-content-center w-100 h-100">
-                        <p>Not Found</p>
+                        <p class="text-muted">Not Found</p>
                     </div>`);
                 }
             }

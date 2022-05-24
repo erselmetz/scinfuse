@@ -24,14 +24,10 @@ require_once '../server/global_function.php';
         <div class="card col-12 col-md-11 h-75" id="individual-chat">
             <div class="card-header">
                 <h4 style="text-transform: capitalize">
-                    <a class="text-decoration-none" href="/chat/individual.php">&lt;</a>
+                    <a type="button" href="/chat/individual.php">&lt;</a>
                 </h4>
             </div>
-            <div class="card-body overflow-auto" id="card-body-textarea" style="color: black">
-                <div class="loader-ring">Loading...
-                    <span class="ring"></span>
-                </div>
-            </div>
+            <div class="card-body overflow-auto" id="card-body-textarea" style="color: black"></div>
             <div class="card-footer">
                 <form name="sendMessageForm">
                     <div class="row">
@@ -57,11 +53,7 @@ require_once '../server/global_function.php';
                 <input class="form-control me-2" name="name" type="search" placeholder="Search" aria-label="Search">
                 <button class="button searchbtn" type="submit">Search</button>
             </form>
-            <div class='card-body overflow-auto'>
-                <div class="loader-ring">Loading...
-                    <span class="ring"></span>
-                </div>
-            </div>
+            <div class='card-body overflow-auto'></div>
         </div>
     </div>
 

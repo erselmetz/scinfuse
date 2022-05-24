@@ -43,6 +43,8 @@
                                 <a class="register" href="/register.php">Register</a>
                                 <a href="/forgot_password.php">Forgot password?</a>
                             </div>
+							<span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?
+								sealID=MszYHvZdZGA9NjMImW8W5688dQjmoFOGojZH8bkjMl0F3IfyS07zUn2N40oF"></script></span>
                             <div class="loader spinner-border text-secondary d-none" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>

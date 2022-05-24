@@ -14,7 +14,7 @@ require_once '../../../../server/global_function.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../../../../dist/css/style.css">
-    <link rel="stylesheet" href="/Modules/Materials.css">
+    <link rel="stylesheet" href="../../../../Modules/Materials.css">
 </head>
 
 <body>
@@ -83,8 +83,20 @@ require_once '../../../../server/global_function.php';
             electric field of the charge on the wires connected to the seat of EMF is what causes charge to flow in a circuit, 
             and charge flow in a circuit is a huge part of what a circuit is all about.
         </p>
+		
+		<p>
+			We use the symbol in the figure to represent a seat of EMF in a circuit diagram (a.k.a. a schematic diagram of a circuit) where               the two collinear line segments represent the terminals of the seat of EMF, the one connected to the shorter of the parallel line             segments being the negative, lower-potential, terminal; and; the one connected to the longer of the parallel line segments being
+            the positive, higher-potential, terminal.
+		</p>
+		
+		<img src="/Modules/Physics/Images/Current, Resistance, and Electromotive Force.jpg" width="400"/>
+		
+		<p style="margin-top: 20px">
+			The other circuit element in this chapter is the resistor. A resistor is a poor conductor. The resistance of a resistor is a                   measure of how poor a conductor the resistor is. The bigger the value of resistance, the more poorly the circuit element allows               charge to flow through itself. Resistors come in many forms. The filament of a light bulb is a resistor. A toaster element (the               part that glows red when the toaster is on) is a resistor. Humans manufacture small ceramic cylinders (with a coating of carbon               and a wire sticking out each end) to have certain values of resistance. Each one has its value of resistance indicated on the                 resistor itself. The symbol in Figure 5.2. is used to represent a resistor, R.
+		</p>
+		
+		<img src="/Modules/Physics/Images/Current, Resistance, and Electromotive Force1.jpg" width="400"/>
 
-        <img src="/Modules/Earth Science/Images/River canyon.png" width="800" height="500" />
     </div>
 
     <button class="button button10" id="btn" onclick='recognition.start()'>
@@ -92,16 +104,8 @@ require_once '../../../../server/global_function.php';
     </button>
     <script src="Voice Command.js"></script>
 
-    <div class="chat">
-        <img src="../../../../image/Chat icon.png" />
-        <div class="chat-content">
-            <a href="../../../../chat/individual.php">Individual</a>
-            <a href="../../../../chat/group.php">Group</a>
-            <a href="../../../../chat/global.php">Global</a>
-        </div>
-    </div>
-
-    <script src="../../../../dist/js/bootstrap.js"></script>
+    <?php require_once '../../../../layout/chat_button.php'; ?>
+    <?php require_once '../../../../layout/script.php' ?>
 
 </body>
 

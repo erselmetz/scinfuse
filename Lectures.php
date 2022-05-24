@@ -4,6 +4,13 @@ require_once 'server/auth.php';
 require_once 'server/db.php';
 require_once 'server/global_function.php';
 
+$subject_name = '';
+
+if(isset($_GET['subject'])){
+    $subject_name = htmlentities($_GET['subject']);
+    header("location: /Lectures/".$subject_name);
+}
+
 ?>
 
 <!doctype html>
@@ -17,57 +24,32 @@ require_once 'server/global_function.php';
 
 </head>
 
-<body>
-    <?php require_once 'layout/navbar.php'; ?>
+<body onload="myFunction()">
+
+<img src="\image\loader.png" width="120" id="loader"/>
+
+<div style="display:none;" id="scinfuse">
+
+    <?php require_once 'layout/navbar.php' ?>
 
     <div class="welcome-text1">
         <h1>Welcome to Lectures!</h1>
     </div>
 
-    <div class="lecture-row">
-        <div class="lecture">
-            <img src="/image/Earth logo.png">
-            <div class="lecture-text">
-                <h3><b>Earth Science</b></h3>
-                <a class="button button13" href="/Lectures/Earth Science/Earth Science Lectures.php">Explore now</a>
-            </div>
-        </div>
+    <?php require_once 'layout/subjects.php' ?>
 
-        <div class="lecture">
-            <img src="/image/Biology logo.png">
-            <div class="lecture-text">
-                <h3><b>Biology</b></h3>
-                <a class="button button14" href="/Lectures/Biology/Biology Lectures.php">Explore now</a>
-            </div>
-        </div>
-
-        <div class="lecture">
-            <img src="/image/Chemistry logo.png">
-            <div class="lecture-text">
-                <h3><b>Chemistry</b></h3>
-                <a class="button button15" href="/Lectures/Chemistry/Chemistry Lectures.php">Explore now</a>
-            </div>
-        </div>
-
-        <div class="lecture">
-            <img src="/image/Physics logo.png">
-            <div class="lecture-text">
-                <h3><b>Physics</b></h3>
-                <a class="button button16" href="/Lectures/Physics/Physics Lectures.php">Explore now</a>
-            </div>
-        </div>
-    </div>
-
-    <button class="button button10" id="btn" onclick='recognition.start()'>
+    <button class="button button10 w3-block" id="btn" onclick='recognition.start()'>
         <img src="/image/microphone.png" width="90" height="80"/>Talk to Scientia
     </button>
     <script src="./dist/js/Voice Command.js"></script>
 
-    <?php require_once 'layout/chat_button.php'; ?>
+    <?php require_once 'layout/chat_button.php' ?>
+    <?php require_once 'layout/footer.php' ?>
+    <?php require_once 'layout/script.php' ?>
 
-    <?php require_once 'layout/footer.php'; ?>
+</div>
 
-    <?php require_once 'layout/script.php'; ?>
+    <script src="./dist/js/loader.js"></script>
 
 </body>
 
